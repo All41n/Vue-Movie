@@ -1,52 +1,5 @@
 <template>
   <v-app light>
-    <!-- <v-navigation-drawer
-      v-model="drawer"
-      temporary
-      floating
-      app
-      id="drawer"
-      color="transparent"
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon id="drawer_icon">{{ item.icon }}</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title id="drawer_name" v-text="item.title" class="icon__title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" flat elevate-on-scroll fixed app>
-      <v-app-bar-nav-icon
-        class="hidden-md-and-down"
-        id="appbar_icon"
-        @click.stop="drawer = !drawer"
-      />
-      <v-btn icon class="hidden-lg-and-up" @click.stop="drawer = !drawer">
-        <v-icon class="hidden-lg-and-up" id="appbar_icon">mdi-menu</v-icon>
-      </v-btn>
-      <v-btn
-        class="hidden-md-and-up"
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon class="hidden-md-and-up" id="appbar_icon"
-          >mdi-{{ `arrow-expand-${miniVariant ? 'right' : 'left'}` }}</v-icon
-        >
-      </v-btn>
-      <v-toolbar-title v-text="title" class="app_title" />
-      <v-spacer></v-spacer>
-    </v-app-bar> -->
     <v-app-bar id="navbar" flat dense fixed collapse-on-scroll>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title v-text="title" class="app_title" />
@@ -149,7 +102,7 @@ export default {
 }
 
 #drawer {
-  width:300px !important;
+  width:256px !important;
   background-color: white !important;
   height: 256px !important;
   top: 43px !important;

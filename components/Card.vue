@@ -24,7 +24,7 @@
         </v-img>
       </v-card>
     </v-btn>
-    <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
+    <Dialog :visible="dialogInfo" :items="items" :mediatype="mediaType" @close="dialogInfo = false" />
   </div>
 </template>
 
@@ -41,6 +41,7 @@ export default {
       imgURL3: 'https://image.tmdb.org/t/p/w780',
       dialog: false,
       dialogInfo: false,
+      mediaType:"tv"
     }
   },
   computed: {},
