@@ -2,7 +2,11 @@
 An app made using Nuxt.js, Vuetify and TMDB API
 
 # Current Appearance
+![image](https://i.ibb.co/vq3h9bL/home-page.png)
 ![image](https://i.ibb.co/cF0CR13/dialog.png)
+
+##ToDo
+
 
 ## Build Setup
 
