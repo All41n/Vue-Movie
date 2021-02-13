@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-slide-group v-model="model" class="pa4 movie_slider" next-icon="$next">
-      <v-slide-item class="list_item" v-for="(item, i) in items.results" :key="i.id">
+      <v-slide-item class="list_item" v-for="(item, i) in items" :key="i.id">
         <Card class="card__item" :items="item"/>
       </v-slide-item>
     </v-slide-group>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Card from '../playground/Card'
+import Card from '../../playground/components/Card'
 
 export default {
   components: {
@@ -17,7 +17,7 @@ export default {
   },
   props: {
     items: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },

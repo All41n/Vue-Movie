@@ -24,7 +24,7 @@
         </v-img>
       </v-card>
     </v-btn>
-    <Dialog :visible="dialogInfo" :items="items" :mediatype="mediaType" @close="dialogInfo = false" />
+    <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
   </div>
 </template>
 
@@ -49,10 +49,6 @@ export default {
     items: {
       type: Object,
       required: true,
-    },
-    genre: {
-      type: Object,
-      required: false,
     },
   },
 }

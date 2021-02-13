@@ -7,7 +7,6 @@
     <Trendingslider :items="trendingMovies" />
     <v-subheader id="slider__heading">TV Series</v-subheader>
     <Trendingslider :items="trendingTv" />
-    <!-- <Trendingslider :items="allTrending" /> -->
   </v-app>
 </template>
 
@@ -25,10 +24,10 @@ export default {
   },
   async asyncData({ error }) {
     try {
-      const movies = await fetchMovies('popular')
-      const allTrending = await fetchTrending('all')
+      const getPopupar = await fetchMovies('popular')
+
       //return movies at number n
-      const movielist = [...movies.results]
+      const popular = [...getPopupar.results]
       const returnLimit = []
       const getRandom = (arr, num = 1) => {
         for (let i = 0; i < num; ) {
@@ -42,10 +41,14 @@ export default {
         return returnLimit
       }
 
-      const gettingRandom = getRandom(movielist, 5)
+      const gettingRandom = getRandom(popular, 5)
       const trendingMovies = await fetchTrending('movie')
       const trendingTv = await fetchTrending('tv')
-      return { gettingRandom, trendingMovies, trendingTv, allTrending }
+      
+
+
+
+      return { gettingRandom, trendingMovies, trendingTv }
     } catch {
       error({ message: 'Data cannot be accessed!' })
     }

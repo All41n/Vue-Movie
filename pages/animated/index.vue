@@ -1,18 +1,18 @@
 <template>
   <v-container fluid>
     <v-subheader class="subheading white--text">Movies</v-subheader>
-    <Slider :items="getAnimatedMovies" />
+    <Slidergroups :items="getAnimatedMovies" />
     <v-subheader class="subheading white--text">TV Shows</v-subheader>
-    <Slider :items="getAnimatedTvShows" />
+    <Slidergroups :items="getAnimatedTvShows" />
   </v-container>
 </template>
 
 <script>
-import Slider from '../../components/Slider'
+import Slidergroups from '../../components/Slidergroups'
 import { fetchDiscover } from '../../tmdb/tmdb'
 export default {
   components: {
-    Slider,
+    Slidergroups,
   },
   computed: {},
   async asyncData({ error }) {

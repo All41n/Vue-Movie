@@ -6,23 +6,16 @@
 </template>
 
 <script>
-import Slidergroups from '../playground/Slidergroups'
+import Slidergroups from '../../playground/components/Slidergroups'
 export default {
   components: {
     Slidergroups,
   },
   props: {
     items: {
-      type: Object,
+      type: Array,
       required: true,
     },
-    // display: {
-    //   type: Object,
-    //   required: false,
-    //   default: function () {
-    //     return null
-    //   }
-    // }
   }
 }
 </script>

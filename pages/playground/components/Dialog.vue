@@ -64,7 +64,7 @@
               {{ genre.name }}
             </v-chip>
           </v-card-text>
-          <v-card-text v-if="this.items.media_type == 'movie'">
+          <v-card-text>
             Cast:
             <v-chip
               id="genre__chip"
@@ -75,21 +75,7 @@
               :key="c"
               color="indigo darken-3"
             >
-              {{ cast.name }}
-            </v-chip>
-          </v-card-text>
-          <v-card-text v-if="this.items.media_type == 'tv'">
-            Cast:
-            <v-chip
-              id="genre__chip"
-              small
-              class="ma-1"
-              label
-              v-for="(crew, c) in credits.crew"
-              :key="c"
-              color="indigo darken-3"
-            >
-              {{ crew.name }}
+              {{ cast.name}}
             </v-chip>
           </v-card-text>
         </v-col>
@@ -124,7 +110,7 @@
                 : similar.first_air_date | formatYear
             }}</v-card-text>
 
-            <v-expansion-panels id="expansion_overview" accordion>
+            <v-expansion-panels id="expansion_overview" accordion flat>
               <v-expansion-panel>
                 <v-expansion-panel-header>Overview</v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -136,6 +122,7 @@
         </v-col>
       </v-row>
     </v-card>
+    <p>{{this.items}}</p>
   </v-dialog>
 </template>
 
@@ -180,6 +167,9 @@ export default {
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
     ).then((res) => res.json())
 
+    // this.details = await fetch(
+    //   `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+    // ).then((res) => res.json())
   },
   computed: {
     show: {

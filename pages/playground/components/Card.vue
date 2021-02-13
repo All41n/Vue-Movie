@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Dialog from '../playground/Dialog'
+import Dialog from '../../playground/components/Dialog'
 export default {
   components: {
     Dialog,
