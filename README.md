@@ -1,6 +1,9 @@
 # Nuxtflix
 An app made using Nuxt.js, Vuetify and TMDB API
 
+# Current Appearance
+![image](https://ibb.co/C7gM4z8)
+
 ## Build Setup
 
 ```bash
