@@ -12,10 +12,11 @@ An app made using Nuxt.js, Vuetify and TMDB API
 - [x] Featured component
 - [x] Dialog Component
 - [x] Sliders
-- [] Lazy Load Image
-- [] Use store to insert media_type
-- [] Component and Page for Selected Genres
-- [] Include trailers
+- [ ] Lazy Load Image
+- [ ] Use store to insert media_type
+- [ ] Component and Page for Selected Genres
+- [ ] Include trailers
+- [ ] Complete Animated Page
 ```
 
 ## Build Setup
