@@ -7,8 +7,6 @@
         </v-btn>
       </v-card-text>
       {{ new Date().getFullYear() }} — <strong>&#169; Allain Escobar</strong>
-      <v-spacer></v-spacer>
-      <v-divider></v-divider>
       <v-card-text id="text"
         >The site is designed and built by me. Data used is provided by
         <a href="https://www.themoviedb.org/">TMDB</a></v-card-text

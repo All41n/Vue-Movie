@@ -78,7 +78,6 @@
               {{ cast.name }}
             </v-chip>
           </v-card-text>
-          </v-card-text>
         </v-col>
       </v-row>
       <h2 id="title_divide">More Like This</h2>
@@ -137,6 +136,7 @@
 </template>
 
 <script>
+
 export default {
   component: {},
   data() {

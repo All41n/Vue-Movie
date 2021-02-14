@@ -1,44 +1,42 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row justify="center">
       <v-col>
-        <v-card id="genre_list" class="mx-auto" max-width="300">
-          <v-expansion-panels  v-model="panel" accordion>
-            <v-expansion-panel v-model="panel" v-for="(item, i) in 5" :key="i">
-              <v-expansion-panel-header>Movie</v-expansion-panel-header>
-              <v-expansion-panel-content>
-                <v-list shaped>
-                  <v-list-item-group v-model="model" multiple>
-                    <template v-for="(item, i) in items">
-                      <v-divider v-if="!item" :key="`divider-${i}`"></v-divider>
+        <v-card id="genre_list" height="auto" width="250">
+          <v-card>
+            <v-expansion-panels accordion>
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  <v-card-title>Movie</v-card-title>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-list shaped>
+                    <v-list-item-group
+                      v-model="model"
+                      multiple
+                      v-for="(movie, m) in movies.genres"
+                      :key="m"
+                    >
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title v-text="movie.name"></v-list-item-title>
+                        </v-list-item-content>
 
-                      <v-list-item
-                        v-else
-                        :key="`item-${i}`"
-                        :value="item"
-                        active-class="deep-purple--text text--accent-4"
-                      >
-                        <template v-slot:default="{ active }">
-                          <v-list-item-content>
-                            <v-list-item-title
-                              v-text="item"
-                            ></v-list-item-title>
-                          </v-list-item-content>
-
-                          <v-list-item-action>
-                            <v-checkbox
-                              :input-value="active"
-                              color="deep-purple accent-4"
-                            ></v-checkbox>
-                          </v-list-item-action>
-                        </template>
+                        <v-list-item-action>
+                          <v-checkbox
+                            :input-value="active"
+                            color="deep-purple accent-4"
+                          ></v-checkbox>
+                        </v-list-item-action>
                       </v-list-item>
-                    </template>
-                  </v-list-item-group>
-                </v-list>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+                    </v-list-item-group>
+                  </v-list>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-card>
+          <v-divider></v-divider>
+          <v-card><v-card-title>TV Series</v-card-title></v-card>
         </v-card>
       </v-col>
       <v-col></v-col>
@@ -47,12 +45,19 @@
 </template>
 
 <script>
+import { fetchGenres } from '../../tmdb/tmdb'
 export default {
-  data: () => ({
-    items: ['Dog Photos', 'Cat Photos', '', 'Potatoes', 'Carrots'],
-    model: ['Carrots'],
-    panel: 0
-  }),
+  data: () => ({}),
+  async asyncData({ error }) {
+    try {
+      const movies = await fetchGenres('movie')
+      const series = await fetchGenres('tv')
+
+      return { movies, series }
+    } catch {
+      error({ message: 'Data cannot be accessed!' })
+    }
+  },
 }
 </script>
 
@@ -62,7 +67,7 @@ export default {
 }
 
 #genre_list {
-  position: absolute;
+  position: fixed;
   top: 50px;
 }
 </style>
