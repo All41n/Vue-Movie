@@ -7,7 +7,7 @@
       large
       @click.stop="dialogInfo = true"
     >
-      <v-card class="ma-3 trending_card" height="auto" width="auto">
+      <v-card class="ma-3 trending_card" height="auto" width="150">
         <v-img :src="imgURL + this.items.poster_path"></v-img>
         <v-card-subtitle class="pb-0" id="movie_title">
           {{

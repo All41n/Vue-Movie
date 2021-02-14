@@ -64,37 +64,24 @@
               {{ genre.name }}
             </v-chip>
           </v-card-text>
-          <v-card-text v-if="this.items.media_type == 'movie'">
+          <v-card-text v-if="this.items.media_type">
             Cast:
             <v-chip
               id="genre__chip"
               small
               class="ma-1"
               label
-              v-for="(cast, c) in credits.cast"
+              v-for="(cast, c) in credits.cast.slice(0,5)"
               :key="c"
               color="indigo darken-3"
             >
               {{ cast.name }}
             </v-chip>
           </v-card-text>
-          <v-card-text v-if="this.items.media_type == 'tv'">
-            Cast:
-            <v-chip
-              id="genre__chip"
-              small
-              class="ma-1"
-              label
-              v-for="(crew, c) in credits.crew"
-              :key="c"
-              color="indigo darken-3"
-            >
-              {{ crew.name }}
-            </v-chip>
           </v-card-text>
         </v-col>
       </v-row>
-      <h2>More Like This</h2>
+      <h2 id="title_divide">More Like This</h2>
       <v-row id="similar">
         <v-col
           cols="12"
@@ -105,6 +92,13 @@
         >
           <v-card id="more-like-this" color="white">
             <v-img class="align-end" :src="imgURL3 + similar.backdrop_path">
+            </v-img>
+            <v-img
+              height="150"
+              v-if="!similar.backdrop_path"
+              class="align-end"
+              :src="require(`../assets/placeholder.png`)"
+            >
             </v-img>
             <v-card-subtitle id="similar_title">
               {{ similar.title ? similar.title : similar.name }}
@@ -135,6 +129,9 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-divider></v-divider>
+      <!-- <h1>{{ this.details.id }}</h1> -->
+      <v-card-title>About {{ details.title ? details.title : details.name }}</v-card-title>
     </v-card>
   </v-dialog>
 </template>
@@ -179,7 +176,6 @@ export default {
     this.similars = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
     ).then((res) => res.json())
-
   },
   computed: {
     show: {
@@ -283,5 +279,9 @@ export default {
 
 #expansion_overview {
   box-shadow: 1px 11px 10px -7px rgba(0, 0, 0, 0.75);
+}
+
+#title_divide{
+  margin-left: 10px;
 }
 </style>

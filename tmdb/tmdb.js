@@ -79,7 +79,7 @@ export function fetchTV(header) {
  */
 export function fetchDiscover(header, genre) {
     return new Promise((resolve, reject) => {
-        axios.get(`https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}`)
+        axios.get(`https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}`)
             .then((response) => {
                 resolve(response.data);
             }).catch((error) => {

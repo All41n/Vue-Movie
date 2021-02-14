@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       imgURL: 'https://image.tmdb.org/t/p/w300',
-      imgURL2: 'https://image.tmdb.org/t/p/w185_and_h278_bestv2',
+      imgURL2: 'https://image.tmdb.org/t/p/w185',
       imgURL3: 'https://image.tmdb.org/t/p/w780',
       dialog: false,
       dialogInfo: false,

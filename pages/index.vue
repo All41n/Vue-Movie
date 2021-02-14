@@ -1,7 +1,6 @@
 <template>
   <v-app id="inspire">
     <Showcase :items="gettingRandom" />
-    <!-- <p>{{gettingRandom}}</p> -->
     <v-subheader id="page_subheading">Trending This Week</v-subheader>
     <v-subheader id="slider__heading">Movies</v-subheader>
     <Trendingslider :items="trendingMovies" />
@@ -45,9 +44,6 @@ export default {
       const trendingMovies = await fetchTrending('movie')
       const trendingTv = await fetchTrending('tv')
       
-
-
-
       return { gettingRandom, trendingMovies, trendingTv }
     } catch {
       error({ message: 'Data cannot be accessed!' })
