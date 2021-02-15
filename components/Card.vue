@@ -7,21 +7,13 @@
       large
       @click.stop="dialogInfo = true"
     >
-      <v-card class="card_img" height="auto" width="auto">
-        <v-img
-          width="auto"
-          class="hidden-sm-and-down align-end thum"
-          :src="imgURL + items.backdrop_path"
+      <v-card class="ma-3 trending_card" height="300" width="150">
+        <v-img :src="imgURL + this.items.poster_path"></v-img>
+        <v-card-subtitle class="pb-0" id="movie_title">
+          {{
+            this.items.title ? this.items.title : this.items.name
+          }}</v-card-subtitle
         >
-          <v-card-subtitle id="subheader">{{
-            items.title ? items.title : items.name
-          }}</v-card-subtitle>
-        </v-img>
-        <v-img
-          class="hidden-md-and-up align-end"
-          :src="imgURL2 + items.poster_path"
-        >
-        </v-img>
       </v-card>
     </v-btn>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
@@ -36,15 +28,10 @@ export default {
   },
   data() {
     return {
-      imgURL: 'https://image.tmdb.org/t/p/w300',
-      imgURL2: 'https://image.tmdb.org/t/p/w185',
-      imgURL3: 'https://image.tmdb.org/t/p/w780',
-      dialog: false,
+      imgURL: 'https://image.tmdb.org/t/p/w185_and_h278_bestv2',
       dialogInfo: false,
-      mediaType:"tv"
     }
   },
-  computed: {},
   props: {
     items: {
       type: Object,
@@ -55,33 +42,30 @@ export default {
 </script>
 
 <style>
-.slider.theme--dark.v-card {
+.trending_card {
   background: none !important;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
-.card_img:hover {
-  box-shadow: 0px 0px 15px 5px rgba(69, 39, 160, 0.8) !important;
-  -webkit-box-shadow: 0px 0px 15px 5px rgba(69, 39, 160, 0.7) !important;
-  -moz-box-shadow: 0px 0px 15px 5px rgba(69, 39, 160, 0.7) !important;
+#movie_title {
+  font-size: 15px;
+  color: #212121;
 }
 
-.modal_btn {
-  padding: 0px !important;
-  margin: 5px;
+
+.v-slide-group__next, .v-slide-group__prev{
+  min-width:60px !important; 
 }
 
-.btn_trailer {
-  float: right;
-  margin: 5px;
-  background-color: rgb(69, 39, 160);
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+  background: none !important;
 }
 
-.theme--dark.v-card {
-  background-color: rgb(33, 33, 33);
+.v-btn--contained{
+  box-shadow: none !important;
 }
 
-#subheader{
-  color:white;
+.v-btn:not(.v-btn--round).v-size--large{
+  padding:0px;
 }
 </style>

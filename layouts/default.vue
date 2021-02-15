@@ -20,4 +20,7 @@ export default {
 </script>
 
 <style>
+.v-application{
+  overflow-x: hidden;
+}
 </style>

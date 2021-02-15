@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-slide-group v-model="model" class="pa4 movie_slider" next-icon="$next">
-      <v-slide-item class="list_item" v-for="(item, i) in items" :key="i.id">
-        <Card class="card__item" :items="item" />
+      <v-slide-item v-for="(item, i) in items" :key="i.id">
+        <Card :items="item" />
       </v-slide-item>
     </v-slide-group>
   </v-container>
@@ -10,21 +10,20 @@
 
 <script>
 import Card from '../components/Card'
-
 export default {
   components: {
     Card,
+  },
+  data() {
+    return {
+      model: null,
+    }
   },
   props: {
     items: {
       type: Array,
       required: true,
     },
-  },
-  data() {
-    return {
-      model: null,
-    }
   },
 }
 </script>
@@ -34,17 +33,7 @@ export default {
   overflow-x: auto !important;
 }
 
-.v-icon.mdi-chevron-right {
-  color: #757575;
-  font-size: 50px;
-}
-
-.v-icon.mdi-chevron-left {
-  color: #757575;
-  font-size: 50px;
-}
-
 .movie_slider{
-  background-color: rgb(230,230,230);
+  background-color:rgb(230,230,230);
 }
 </style>

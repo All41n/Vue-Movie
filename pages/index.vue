@@ -3,14 +3,14 @@
     <Showcase :items="gettingRandom" />
     <v-subheader id="page_subheading">Trending This Week</v-subheader>
     <v-subheader id="slider__heading">Movies</v-subheader>
-    <Trendingslider :items="trendingMovies" />
+    <Slidegroups :items="movies" />
     <v-subheader id="slider__heading">TV Series</v-subheader>
-    <Trendingslider :items="trendingTv" />
+    <Slidegroups :items="tv" />
   </v-app>
 </template>
 
 <script>
-import Trendingslider from '../components/Trendingslider'
+import Slidegroups from '../components/Slidergroups'
 import Showcase from '../components/Showcase'
 import { fetchMovies, fetchTrending } from '../tmdb/tmdb'
 /**
@@ -19,7 +19,7 @@ import { fetchMovies, fetchTrending } from '../tmdb/tmdb'
 export default {
   components: {
     Showcase,
-    Trendingslider,
+    Slidegroups,
   },
   async asyncData({ error }) {
     try {
@@ -44,7 +44,10 @@ export default {
       const trendingMovies = await fetchTrending('movie')
       const trendingTv = await fetchTrending('tv')
       
-      return { gettingRandom, trendingMovies, trendingTv }
+      const movies = [...trendingMovies.results]
+      const tv = [...trendingTv.results]
+
+      return { gettingRandom, movies, tv }
     } catch {
       error({ message: 'Data cannot be accessed!' })
     }

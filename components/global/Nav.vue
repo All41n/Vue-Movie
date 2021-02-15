@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar id="navbar" flat dense fixed collapse-on-scroll>
+    <v-app-bar id="navbar" flat dense fixed elevate-on-scroll collapse-on-scroll>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title v-text="title" class="app_title" />
     </v-app-bar>
@@ -123,8 +123,7 @@ export default {
   border-bottom-right-radius: 10px !important;
 }
 
-#navbar {
-  max-width: 300px;
+/* #navbar {
   border-bottom-right-radius: 10px;
-}
+} */
 </style>

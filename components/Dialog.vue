@@ -71,7 +71,7 @@
               small
               class="ma-1"
               label
-              v-for="(cast, c) in credits.cast.slice(0,5)"
+              v-for="(cast, c) in credits.cast"
               :key="c"
               color="indigo darken-3"
             >
@@ -84,8 +84,8 @@
       <v-row id="similar">
         <v-col
           cols="12"
-          sm="3"
-          md="4"
+          sm="4"
+          md="3"
           v-for="(similar, s) in similars.results"
           :key="s"
         >
@@ -93,15 +93,15 @@
             <v-img class="align-end" :src="imgURL3 + similar.backdrop_path">
             </v-img>
             <v-img
-              height="150"
+              height="113"
               v-if="!similar.backdrop_path"
               class="align-end"
               :src="require(`../assets/placeholder.png`)"
             >
             </v-img>
-            <v-card-subtitle id="similar_title">
+            <v-card-text id="similar_title">
               {{ similar.title ? similar.title : similar.name }}
-            </v-card-subtitle>
+            </v-card-text>
             <v-rating
               id="similar_rating"
               :value="similar.vote_average / 2"
@@ -130,13 +130,17 @@
       </v-row>
       <v-divider></v-divider>
       <!-- <h1>{{ this.details.id }}</h1> -->
-      <v-card-title>About {{ details.title ? details.title : details.name }}</v-card-title>
+      <v-card-title
+        >About {{ details.title ? details.title : details.name }}</v-card-title
+      >
     </v-card>
+    <p>
+      {{ this.items.id }}
+    </p>
   </v-dialog>
 </template>
 
 <script>
-
 export default {
   component: {},
   data() {
@@ -189,6 +193,7 @@ export default {
       },
     },
   },
+  
 }
 </script>
 
@@ -281,7 +286,7 @@ export default {
   box-shadow: 1px 11px 10px -7px rgba(0, 0, 0, 0.75);
 }
 
-#title_divide{
+#title_divide {
   margin-left: 10px;
 }
 </style>
