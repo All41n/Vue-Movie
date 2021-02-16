@@ -71,7 +71,7 @@
               small
               class="ma-1"
               label
-              v-for="(cast, c) in credits.cast"
+              v-for="(cast, c) in castsToDisplay"
               :key="c"
               color="indigo darken-3"
             >
@@ -80,69 +80,18 @@
           </v-card-text>
         </v-col>
       </v-row>
-      <h2 id="title_divide">More Like This</h2>
-      <v-row id="similar">
-        <v-col
-          cols="12"
-          sm="4"
-          md="3"
-          v-for="(similar, s) in similars.results"
-          :key="s"
-        >
-          <v-card id="more-like-this" color="white">
-            <v-img class="align-end" :src="imgURL3 + similar.backdrop_path">
-            </v-img>
-            <v-img
-              height="113"
-              v-if="!similar.backdrop_path"
-              class="align-end"
-              :src="require(`../assets/placeholder.png`)"
-            >
-            </v-img>
-            <v-card-text id="similar_title">
-              {{ similar.title ? similar.title : similar.name }}
-            </v-card-text>
-            <v-rating
-              id="similar_rating"
-              :value="similar.vote_average / 2"
-              background-color="purple lighten-3"
-              color="purple"
-              readonly
-              small
-              half-increments
-            ></v-rating>
-            <v-card-text id="released">{{
-              similar.release_date
-                ? similar.release_date
-                : similar.first_air_date | formatYear
-            }}</v-card-text>
-
-            <v-expansion-panels id="expansion_overview" accordion>
-              <v-expansion-panel>
-                <v-expansion-panel-header>Overview</v-expansion-panel-header>
-                <v-expansion-panel-content>
-                  <v-card-text>{{ similar.overview }}</v-card-text>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-divider></v-divider>
-      <!-- <h1>{{ this.details.id }}</h1> -->
-      <v-card-title
-        >About {{ details.title ? details.title : details.name }}</v-card-title
-      >
+      <Similar :title="this.items.title" :items="similars" />
     </v-card>
-    <p>
-      {{ this.items.id }}
-    </p>
   </v-dialog>
 </template>
 
 <script>
+import Similar from '../../components/dialog/Similar'
 export default {
-  component: {},
+  components: { Similar },
+  component: {
+    Similar,
+  },
   data() {
     return {
       imgURL3: 'https://image.tmdb.org/t/p/w780',
@@ -182,6 +131,11 @@ export default {
     ).then((res) => res.json())
   },
   computed: {
+    castsToDisplay() {
+      for (let i in this.credits.cast) {
+        return this.credits.cast.slice(0, 4)
+      }
+    },
     show: {
       get() {
         return this.visible
@@ -193,7 +147,6 @@ export default {
       },
     },
   },
-  
 }
 </script>
 
@@ -257,36 +210,5 @@ export default {
   font-variant: initial;
   font-style: italic;
   font-size: 20px;
-}
-
-#more-like-this {
-  background: none;
-  box-shadow: none;
-}
-
-#similar {
-  margin: 0px;
-}
-
-#similar_title {
-  text-align: center;
-  color: black;
-}
-
-#similar_rating {
-  text-align: center;
-}
-
-#released {
-  text-align: center;
-  color: black;
-}
-
-#expansion_overview {
-  box-shadow: 1px 11px 10px -7px rgba(0, 0, 0, 0.75);
-}
-
-#title_divide {
-  margin-left: 10px;
 }
 </style>
