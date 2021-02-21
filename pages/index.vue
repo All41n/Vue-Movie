@@ -3,9 +3,9 @@
     <Showcase :items="gettingRandom" />
     <v-subheader id="page_subheading">Trending This Week</v-subheader>
     <v-subheader id="slider__heading">Movies</v-subheader>
-    <Slidegroups :items="movies" />
+    <Slidegroups :items="movies" :url="trendingMoviesURL('movie')"/>
     <v-subheader id="slider__heading">TV Series</v-subheader>
-    <Slidegroups :items="tv" />
+    <Slidegroups :items="tv" :url="trendingTVURL('tv')"/>
   </v-app>
 </template>
 
@@ -20,6 +20,14 @@ export default {
   components: {
     Showcase,
     Slidegroups,
+  },
+  methods: {
+    trendingMoviesURL: function (media) {
+      return { name: 'movie-trending-trending', params: { name: media } }
+    },
+    trendingTVURL: function (media) {
+      return { name: 'tv-trending-trending', params: { name: media } }
+    },
   },
   async asyncData({ error }) {
     try {
@@ -43,7 +51,7 @@ export default {
       const gettingRandom = getRandom(popular, 5)
       const trendingMovies = await fetchTrending('movie')
       const trendingTv = await fetchTrending('tv')
-      
+
       const movies = [...trendingMovies.results]
       const tv = [...trendingTv.results]
 

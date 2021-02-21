@@ -91,13 +91,27 @@ export function fetchDiscover(header, genre) {
 /**
  * get genre list
  */
- export function fetchGenres(header){
-     return new Promise((resolve, reject)=>{
-         axios.get(`https://api.themoviedb.org/3/genre/${header}/list?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`)
-         .then((response)=>{
-             resolve(response.data);
-         }).catch((error)=>{
-             reject(error);
-         })
-     })
- }
+export function fetchGenres(header) {
+    return new Promise((resolve, reject) => {
+        axios.get(`https://api.themoviedb.org/3/genre/${header}/list?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`)
+            .then((response) => {
+                resolve(response.data);
+            }).catch((error) => {
+                reject(error);
+            })
+    })
+}
+
+/**
+ * get cast info
+ */
+export function fetchPeople(header) {
+    return new Promise((resolve, reject) => {
+        axios.get(` https://api.themoviedb.org/3/person/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`)
+            .then((response) => {
+                resolve(response.data);
+            }).catch((error) => {
+                reject(error);
+            })
+    })
+}

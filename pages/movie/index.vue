@@ -2,17 +2,17 @@
   <v-container fluid>
     <Featured :items="getFeatured" />
     <v-subheader id="subheading">Action</v-subheader>
-    <Slidergroups :items="action" />
+    <Slidergroups :items="action" :url="dynamicURL('action')" />
     <v-subheader id="subheading">Trending Now</v-subheader>
-    <Slidergroups :items="trending" />
+    <Slidergroups :items="trending" :url="dynamicURL('trending')" />
     <v-subheader id="subheading">Fantasy</v-subheader>
-    <Slidergroups :items="fantasy" />
+    <Slidergroups :items="fantasy" :url="dynamicURL('fantasy')" />
     <v-subheader id="subheading">Animated</v-subheader>
-    <Slidergroups :items="animated" />
+    <Slidergroups :items="animated" :url="dynamicURL('animated')" />
     <v-subheader id="subheading">Horror</v-subheader>
-    <Slidergroups :items="horror" />
+    <Slidergroups :items="horror" :url="dynamicURL('horror')" />
     <v-subheader id="subheading">Sci-Fi</v-subheader>
-    <Slidergroups :items="scifi" />
+    <Slidergroups :items="scifi" :url="dynamicURL('scifi')" />
   </v-container>
 </template>
 
@@ -28,6 +28,11 @@ export default {
   },
   data() {
     return {}
+  },
+  methods: {
+    dynamicURL: function (type) {
+      return { name: 'discover-explore-name', params: { name: type } }
+    },
   },
   computed: {},
   async asyncData({ error }) {
@@ -59,11 +64,21 @@ export default {
       const trending = [...getTrending.results]
 
       //Temporary forEach method for the dialog to work.
-      action.forEach(function(e){e.media_type = 'movie'})
-      fantasy.forEach(function(e){e.media_type = 'movie'})
-      scifi.forEach(function(e){e.media_type = 'movie'})
-      animated.forEach(function(e){e.media_type = 'movie'})
-      horror.forEach(function(e){e.media_type = 'movie'})
+      action.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      fantasy.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      scifi.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      animated.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      horror.forEach(function (e) {
+        e.media_type = 'movie'
+      })
 
       return {
         action,

@@ -7,13 +7,8 @@
       large
       @click.stop="dialogInfo = true"
     >
-      <v-card class="ma-3 trending_card" height="300" width="150">
+      <v-card class="ma-3 trending_card" width="150">
         <v-img :src="imgURL + this.items.poster_path"></v-img>
-        <v-card-subtitle class="pb-0" id="movie_title">
-          {{
-            this.items.title ? this.items.title : this.items.name
-          }}</v-card-subtitle
-        >
       </v-card>
     </v-btn>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />

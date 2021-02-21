@@ -6,21 +6,24 @@
         cols="12"
         sm="4"
         md="4"
-        v-for="(item, i) in this.items.results.slice(0, amountOfMovies)"
+        v-for="(item, i) in this.items.results.slice(0, limit)"
         :key="i"
       >
         <v-card>
           <v-img
+            class="align-end"
             height="150"
             :src="
               item.backdrop_path != null
                 ? IMG + item.backdrop_path
                 : require('../../assets/placeholder.png')
             "
-          ></v-img>
-          <v-card-text id="similar_details">{{
-            item.title ? item.title : item.name
-          }}</v-card-text>
+          >
+            <v-card-text id="similar_details" class="white--text">{{
+              item.title ? item.title : item.name
+            }}</v-card-text></v-img
+          >
+
           <v-rating
             id="similar_details"
             readonly
@@ -31,7 +34,7 @@
             :value="item.vote_average / 2"
           ></v-rating>
           <v-card-text id="similar_details">{{
-            item.release_date | formatYear
+            item.release_date ? item.release_date : item.first_air_date| formatYear
           }}</v-card-text>
           <v-expansion-panels id="expansion_overview" accordion>
             <v-expansion-panel>
@@ -77,7 +80,6 @@ export default {
   components: { Dialog },
   props: {
     title: {
-      type: String,
       required: true,
     },
     items: {
@@ -120,6 +122,6 @@ export default {
 }
 
 #null_message {
-    text-align: center;
+  text-align: center;
 }
 </style>

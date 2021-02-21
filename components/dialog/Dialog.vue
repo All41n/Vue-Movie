@@ -1,6 +1,9 @@
 <template>
   <v-dialog v-model="show" max-width="900px">
     <v-card id="dialog">
+      <v-btn fixed id="close" icon dark flat @click.stop="show = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
       <v-img
         id="backgdrop"
         height="auto"
@@ -8,9 +11,6 @@
         :src="imgURL3 + this.items.backdrop_path"
         gradient="to top, rgba(230,230,230,1), rgba(230,230,230,0.4)"
       >
-        <v-btn class="btn_trailer" icon dark flat @click.stop="show = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
       </v-img>
       <div class="container mx-auto md:flex px-6">
         <v-img
@@ -64,7 +64,7 @@
               {{ genre.name }}
             </v-chip>
           </v-card-text>
-          <v-card-text v-if="this.items.media_type">
+          <v-card-text v-if="this.credits.cast != 0">
             Cast:
             <v-chip
               id="genre__chip"
@@ -78,19 +78,38 @@
               {{ cast.name }}
             </v-chip>
           </v-card-text>
+          <v-card-text v-else-if="this.credits.cast == 0">
+            Cast:
+            <v-chip
+              id="genre__chip"
+              small
+              class="ma-1"
+              label
+              color="indigo darken-3"
+            >
+              <v-card-text>
+                No cast for {{ this.items.title }} were found.
+              </v-card-text>
+            </v-chip>
+          </v-card-text>
         </v-col>
       </v-row>
-      <Similar :title="this.items.title" :items="similars" />
+      <Similar
+        :title="this.items.title ? this.items.title : this.items.name"
+        :items="this.similars"
+      />
+      <About :title="this.items.title ? this.items.title : this.items.name" :casts="credits.cast" :crews="credits.crew" :mediatype="this.items.media_type"/>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
 import Similar from '../../components/dialog/Similar'
+import About from '../../components/dialog/About'
 export default {
-  components: { Similar },
-  component: {
+  components: {
     Similar,
+    About,
   },
   data() {
     return {
@@ -107,14 +126,11 @@ export default {
   props: {
     visible: {
       type: Boolean,
+      required: true,
     },
     items: {
       type: Object,
-      required: false,
-    },
-    mediatype: {
-      type: String,
-      required: false,
+      required: true,
     },
   },
   async fetch() {
@@ -167,6 +183,9 @@ export default {
 #close {
   color: white;
   background-color: rgb(69, 39, 160) !important;
+  margin-top: 5px;
+  margin-left: 10px;
+  z-index: 10;
 }
 
 #backdrop {

@@ -53,22 +53,22 @@ export default {
         {
           icon: 'mdi-movie-open',
           title: 'Movies',
-          to: 'movie',
+          to: '/movie',
         },
         {
           icon: 'mdi-television-box',
           title: 'TV',
-          to: 'tv',
+          to: '/tv',
         },
         {
           icon: 'mdi-folder-multiple-plus',
           title: 'Discover',
-          to: 'discover',
+          to: '/discover',
         },
         {
           icon: 'mdi-toy-brick',
           title: 'Playground',
-          to: 'playground',
+          to: '/playground',
         },
       ],
       miniVariant: false,

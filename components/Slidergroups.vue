@@ -1,5 +1,10 @@
 <template>
   <v-container fluid>
+    <nuxt-link :to="url">
+      <v-chip label dark color="deep-purple darken-3">
+        Explore All
+      </v-chip>
+    </nuxt-link>
     <v-slide-group v-model="model" class="pa4 movie_slider" next-icon="$next">
       <v-slide-item v-for="(item, i) in items" :key="i.id">
         <Card :items="item" />
@@ -24,6 +29,10 @@ export default {
       type: Array,
       required: true,
     },
+    url: {
+      type:Object,
+      required:true,
+    }
   },
 }
 </script>
