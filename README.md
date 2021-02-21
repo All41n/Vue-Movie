@@ -1,5 +1,5 @@
 # Nuxtflix
-An app made using Nuxt.js, Vuetify and TMDB API
+An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 
 # Current Appearance
 ![image](https://i.ibb.co/vq3h9bL/home-page.png)
