@@ -65,7 +65,6 @@ export default {
 
 <style scoped>
 #inspire {
-  position: relative;
   overflow-y: auto;
   background-color: rgb(230, 230, 230);
 }

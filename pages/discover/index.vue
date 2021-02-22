@@ -22,9 +22,9 @@ export default {
 </script>
 
 <style>
-.container {
+/* .container {
   padding: 0px !important;
-}
+} */
 
 #genre_holder {
   position:relative;

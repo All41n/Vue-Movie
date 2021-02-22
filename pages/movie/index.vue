@@ -2,17 +2,17 @@
   <v-container fluid>
     <Featured :items="getFeatured" />
     <v-subheader id="subheading">Action</v-subheader>
-    <Slidergroups :items="action" :url="dynamicURL('action')" />
+    <Slidergroups :items="action" :url="exploreURL('movie','Action',28)" />
     <v-subheader id="subheading">Trending Now</v-subheader>
-    <Slidergroups :items="trending" :url="dynamicURL('trending')" />
+    <Slidergroups :items="trending" :url="trendingMovies('trending')" />
     <v-subheader id="subheading">Fantasy</v-subheader>
-    <Slidergroups :items="fantasy" :url="dynamicURL('fantasy')" />
+    <Slidergroups :items="fantasy" :url="exploreURL('movie','Fantasy',14)" />
     <v-subheader id="subheading">Animated</v-subheader>
-    <Slidergroups :items="animated" :url="dynamicURL('animated')" />
+    <Slidergroups :items="animated" :url="exploreURL('movie','Animated',16)" />
     <v-subheader id="subheading">Horror</v-subheader>
-    <Slidergroups :items="horror" :url="dynamicURL('horror')" />
+    <Slidergroups :items="horror" :url="exploreURL('movie','Horror',27)" />
     <v-subheader id="subheading">Sci-Fi</v-subheader>
-    <Slidergroups :items="scifi" :url="dynamicURL('scifi')" />
+    <Slidergroups :items="scifi" :url="exploreURL('movie','Sci-fi',878)" />
   </v-container>
 </template>
 
@@ -30,9 +30,12 @@ export default {
     return {}
   },
   methods: {
-    dynamicURL: function (type) {
-      return { name: 'discover-explore-name', params: { name: type } }
+    exploreURL: function (media, genre, id) {
+      return { name: 'discover-explore-name-id', params: {explore:media, name:genre, id: id } }
     },
+    trendingMovies: function(type){
+      return { name: 'movie-trending-trending', params: {name: type } }
+    }
   },
   computed: {},
   async asyncData({ error }) {

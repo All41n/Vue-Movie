@@ -7,7 +7,7 @@
       large
       @click.stop="dialogInfo = true"
     >
-      <v-card class="ma-3 trending_card" width="150">
+      <v-card class="ma-3 trending_card" max-width="250">
         <v-img :src="imgURL + this.items.poster_path"></v-img>
       </v-card>
     </v-btn>
