@@ -97,6 +97,7 @@
       <Similar
         :title="this.items.title ? this.items.title : this.items.name"
         :items="this.similars"
+        :id="this.items.id"
       />
       <About :title="this.items.title ? this.items.title : this.items.name" :casts="credits.cast" :crews="credits.crew" :mediatype="this.items.media_type"/>
     </v-card>

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-app-bar
-      id="appbar-navbar"
-      flat
-      fixed
-      app
-    >
+    <v-app-bar id="appbar-navbar" flat fixed app>
       <v-app-bar-nav-icon
         class="hidden-md-and-up"
         @click.stop="drawer = !drawer"
@@ -35,6 +30,34 @@
         {{ item.title }}
       </v-btn>
     </v-app-bar>
+    <v-navigation-drawer
+      class="hidden-lg-and-up"
+      v-model="drawer"
+      temporary
+      :floating="floating"
+      app
+    >
+      <v-text-field label="Search" single-line filled hide-details></v-text-field>
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon class="drawer_icon">{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title class="drawer_title">{{
+              item.title
+            }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item> </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 
@@ -43,6 +66,8 @@ export default {
   data() {
     return {
       title: 'Nuxtflix',
+      drawer: false,
+      floating: true,
       items: [
         {
           icon: 'mdi-home',
@@ -77,6 +102,14 @@ export default {
 
 <style>
 #router-icon {
+  color: #4527a0;
+}
+
+.drawer_icon {
+  color: #4527a0 !important;
+}
+
+.drawer_title {
   color: #4527a0;
 }
 </style>

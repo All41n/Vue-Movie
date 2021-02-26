@@ -1,6 +1,16 @@
 <template>
   <div>
-    <h2 id="section_identifier">More Like "{{ this.title }}"</h2>
+    <nuxt-link
+      :to="{
+        name: 'discover-similar-name',
+        params: { name: this.title, id: this.id },
+      }"
+      class="nuxt_link"
+    >
+      <div class="d-flex">
+        <h3 class="nuxt_heading">Similar shows as {{ this.title }}</h3>
+      </div>
+    </nuxt-link>
     <v-row v-if="this.items.total_results > 0" id="holder">
       <v-col
         cols="12"
@@ -33,9 +43,20 @@
             color="deep-purple darken-3"
             :value="item.vote_average / 2"
           ></v-rating>
-          <v-card-text id="similar_details">{{
-            item.release_date ? item.release_date : item.first_air_date| formatYear
-          }}</v-card-text>
+          <v-card-text
+            id="similar_details"
+            v-if="item.release_date != null || item.first_air_date != null"
+            >{{
+              item.release_date
+                ? item.release_date
+                : item.first_air_date | formatYear
+            }}</v-card-text
+          >
+          <v-card-text
+            id="similar_details"
+            v-if="item.release_date == null && item.first_air_date == null"
+            >Coming Soon!</v-card-text
+          >
           <v-expansion-panels id="expansion_overview" accordion>
             <v-expansion-panel>
               <v-expansion-panel-header>Overview</v-expansion-panel-header>
@@ -86,6 +107,9 @@ export default {
       type: Object,
       required: true,
     },
+    id: {
+      required: true,
+    },
   },
   methods: {
     expand() {
@@ -101,6 +125,10 @@ export default {
 </script>
 
 <style>
+#null_message{
+  text-align: center;
+}
+
 #similar_details {
   text-align: center;
 }
@@ -121,7 +149,58 @@ export default {
   height: 50px;
 }
 
-#null_message {
+.null_message {
   text-align: center;
+}
+
+.nuxt_link {
+  font-size: 25px;
+  text-decoration: none;
+  color: rgb(69, 39, 160) !important;
+}
+
+.nuxt_heading {
+  color: black;
+  /* margin-left: 5px; */
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.nuxt_link .nuxt_heading::before,
+.nuxt_link .nuxt_heading::after {
+  display: inline-block;
+  opacity: 0;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.2s;
+  transition: transform 0.3s, opacity 0.2s;
+}
+
+/* .nuxt_link .nuxt_heading::before {
+  margin-right: 10px;
+  content: '>';
+  -webkit-transform: translateX(20px);
+  -moz-transform: translateX(20px);
+  transform: translateX(20px);
+} */
+
+.nuxt_link .nuxt_heading::after {
+  font-family: 'Material Design Icons';
+  font-size: 18px;
+  /* font-weight: 800; */
+  margin-left: 10px;
+  content: 'Explore All \F0142';
+  -webkit-transform: translateX(-20px);
+  -moz-transform: translateX(-20px);
+  transform: translateX(-20px);
+}
+
+.nuxt_link .nuxt_heading:hover::before,
+.nuxt_link .nuxt_heading:hover::after,
+.nuxt_link .nuxt_heading:hover::before,
+.nuxt_link .nuxt_heading:hover::after {
+  opacity: 1;
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+  transform: translateX(0px);
 }
 </style>

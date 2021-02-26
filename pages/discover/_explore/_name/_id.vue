@@ -1,11 +1,16 @@
 <template>
   <v-container fluid>
-    <h1 id="discover_title">{{ this.title }}</h1>
-    <v-row>
-      <v-col v-for="(disc, d) in discover" :key="d.id">
-        <Card :items="disc" />
-      </v-col>
+    <h3 id="discover_title">{{ this.title }}</h3>
+    <v-row justify="center" align="center" class="pt-5">
+      <Card v-for="(item, i) in discover" :key="i" :items="item" />
     </v-row>
+    <client-only>
+      <infinite-loading
+        spinner="bubbles"
+        forceUseInfiniteWrapper="true"
+        @infinite="fetchMore"
+      ></infinite-loading>
+    </client-only>
   </v-container>
 </template>
 
@@ -16,22 +21,43 @@ export default {
   data() {
     return {
       title: this.$route.params.name,
+      media: this.$route.params.explore,
+      id: this.$route.params.id,
+      discover: [],
+      page: 1,
     }
   },
   components: {
     Card,
   },
-  async asyncData({ params, error }) {
-    try {
-      const getDiscover = await fetchDiscover(params.explore, params.id)
-      const discover = [...getDiscover.results]
-      discover.forEach(function (e) {
-        e.media_type = params.explore
+  methods: {
+    // async fetchShows() {
+    //   const discover = await fetchDiscover(this.media, this.id, this.page)
+    //   this.discover = discover.results
+    //   this.insertMediaType(this.discover, this.media)
+    // },
+    async fetchMore($state) {
+      const loadMore = await fetchDiscover(this.media, this.id, this.page).then(
+        (items) => {
+          if (items.results.length) {
+            this.page++
+            this.discover.push(...items.results)
+            this.insertMediaType(this.discover, this.media)
+            $state.loaded()
+          } else {
+            $state.complete()
+          }
+        }
+      )
+    },
+    insertMediaType(arr, media) {
+      return arr.forEach(function (e) {
+        e.media_type = media
       })
-      return { discover }
-    } catch {
-      error({ message: 'Data cannot be accessed!' })
-    }
+    },
+  },
+  beforCreate() {
+    this.fetchMore()
   },
 }
 </script>
@@ -39,9 +65,8 @@ export default {
 <style>
 #discover_title {
   color: #4527a0;
-  font-size: 50px;
+  font-size: 40px;
   text-align: center;
   letter-spacing: 10px;
 }
-
 </style>

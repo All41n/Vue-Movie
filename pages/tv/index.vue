@@ -37,40 +37,32 @@ export default {
   },
   async asyncData({ error }) {
     try {
-      const getActionAdventure = await fetchDiscover('tv', '10759')
-      const getComedy = await fetchDiscover('tv', '35')
-      const getDocumentary = await fetchDiscover('tv', '99')
-      const getKids = await fetchDiscover('tv', '10762')
-      const getScififantasy = await fetchDiscover('tv', '10765')
-      const getDrama = await fetchDiscover('tv', '18')
-      const getTrending = await fetchTrending('tv')
+      const actionadventure = await fetchDiscover('tv', '10759')
+      const comedy = await fetchDiscover('tv', '35')
+      const documentary = await fetchDiscover('tv', '99')
+      const kids = await fetchDiscover('tv', '10762')
+      const scififantasy = await fetchDiscover('tv', '10765')
+      const drama = await fetchDiscover('tv', '18')
+      const trending = await fetchTrending('tv')
 
       const featuredShow = [
-        ...getActionAdventure.results,
-        ...getComedy.results,
-        ...getDocumentary.results,
-        ...getScififantasy.results,
-        ...getDrama.results,
+        ...actionadventure.results,
+        ...comedy.results,
+        ...documentary.results,
+        ...scififantasy.results,
+        ...drama.results,
+        ...kids.results
       ]
       const randomShow =
         featuredShow[Math.floor(Math.random() * featuredShow.length)]
       const featured = await fetchTV(randomShow.id)
 
-      //Temporary forEach to get the dialog working
-      const actionadventure = [...getActionAdventure.results]
-      const comedy = [...getComedy.results]
-      const documentary = [...getDocumentary.results]
-      const drama = [...getDrama.results]
-      const scififantasy = [...getScififantasy.results]
-      const kids = [...getKids.results]
-      const trending = [...getTrending.results]
-
-      actionadventure.forEach(function (e) {e.media_type = "tv"})
-      comedy.forEach(function (e) {e.media_type = "tv"})
-      documentary.forEach(function (e) {e.media_type = "tv"})
-      drama.forEach(function (e) {e.media_type = "tv"})
-      scififantasy.forEach(function (e) {e.media_type = "tv"})
-      kids.forEach(function (e) {e.media_type = "tv"})
+      actionadventure.results.forEach(function (e) {e.media_type = "tv"})
+      comedy.results.forEach(function (e) {e.media_type = "tv"})
+      documentary.results.forEach(function (e) {e.media_type = "tv"})
+      drama.results.forEach(function (e) {e.media_type = "tv"})
+      scififantasy.results.forEach(function (e) {e.media_type = "tv"})
+      kids.results.forEach(function (e) {e.media_type = "tv"})
 
       return {
         actionadventure,

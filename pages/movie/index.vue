@@ -1,18 +1,36 @@
 <template>
   <v-container fluid>
     <Featured :items="getFeatured" />
-    <v-subheader id="subheading">Action</v-subheader>
-    <Slidergroups :items="action" :url="exploreURL('movie','Action',28)" />
-    <v-subheader id="subheading">Trending Now</v-subheader>
-    <Slidergroups :items="trending" :url="trendingMovies('trending')" />
-    <v-subheader id="subheading">Fantasy</v-subheader>
-    <Slidergroups :items="fantasy" :url="exploreURL('movie','Fantasy',14)" />
-    <v-subheader id="subheading">Animated</v-subheader>
-    <Slidergroups :items="animated" :url="exploreURL('movie','Animated',16)" />
-    <v-subheader id="subheading">Horror</v-subheader>
-    <Slidergroups :items="horror" :url="exploreURL('movie','Horror',27)" />
-    <v-subheader id="subheading">Sci-Fi</v-subheader>
-    <Slidergroups :items="scifi" :url="exploreURL('movie','Sci-fi',878)" />
+    <Slidergroups
+      :items="action"
+      :url="exploreURL('movie', 'Action', '28')"
+      :title="sliderTitle('Action')"
+    />
+    <Slidergroups
+      :items="trending"
+      :url="trendingMovies('trending')"
+      :title="sliderTitle('Trending')"
+    />
+    <Slidergroups
+      :items="fantasy"
+      :url="exploreURL('movie', 'Fantasy', '14')"
+      :title="sliderTitle('Fantasy')"
+    />
+    <Slidergroups
+      :items="animated"
+      :url="exploreURL('movie', 'Animated', '16')"
+      :title="sliderTitle('Animated')"
+    />
+    <Slidergroups
+      :items="horror"
+      :url="exploreURL('movie', 'Horror', '27')"
+      :title="sliderTitle('Horror')"
+    />
+    <Slidergroups
+      :items="scifi"
+      :url="exploreURL('movie', 'Sci-fi', '878')"
+      :title="sliderTitle('Scifi')"
+    />
   </v-container>
 </template>
 
@@ -31,57 +49,55 @@ export default {
   },
   methods: {
     exploreURL: function (media, genre, id) {
-      return { name: 'discover-explore-name-id', params: {explore:media, name:genre, id: id } }
+      return {
+        name: 'discover-explore-name-id',
+        params: { explore: media, name: genre, id: id },
+      }
     },
-    trendingMovies: function(type){
-      return { name: 'movie-trending-trending', params: {name: type } }
-    }
+    trendingMovies: function (type) {
+      return { name: 'movie-trending-trending', params: { name: type } }
+    },
+    sliderTitle(title) {
+      return title
+    },
   },
   computed: {},
   async asyncData({ error }) {
     try {
-      const getActionMovies = await fetchDiscover('movie', '28')
-      const getFantasyMovies = await fetchDiscover('movie', '14')
-      const getAnimationMovies = await fetchDiscover('movie', '16')
-      const getHorrorMovies = await fetchDiscover('movie', '27')
-      const getScifi = await fetchDiscover('movie', '878')
-      const getTrending = await fetchTrending('movie')
+      const action = await fetchDiscover('movie', '28')
+      const fantasy = await fetchDiscover('movie', '14')
+      const animated = await fetchDiscover('movie', '16')
+      const horror = await fetchDiscover('movie', '27')
+      const scifi = await fetchDiscover('movie', '878')
+      const trending = await fetchTrending('movie')
+
+      action.results.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      fantasy.results.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      animated.results.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      horror.results.forEach(function (e) {
+        e.media_type = 'movie'
+      })
+      scifi.results.forEach(function (e) {
+        e.media_type = 'movie'
+      })
 
       //get single movie for featured
       const mixedGenres = [
-        ...getActionMovies.results,
-        ...getFantasyMovies.results,
-        ...getScifi.results,
-        ...getAnimationMovies.results,
+        ...action.results,
+        ...fantasy.results,
+        ...scifi.results,
+        ...animated.results,
       ]
 
       const randomfy =
         mixedGenres[Math.floor(Math.random() * mixedGenres.length)]
       const getFeatured = await fetchMovie(randomfy.id)
-
-      const fantasy = [...getFantasyMovies.results]
-      const animated = [...getAnimationMovies.results]
-      const horror = [...getHorrorMovies.results]
-      const scifi = [...getScifi.results]
-      const action = [...getActionMovies.results]
-      const trending = [...getTrending.results]
-
-      //Temporary forEach method for the dialog to work.
-      action.forEach(function (e) {
-        e.media_type = 'movie'
-      })
-      fantasy.forEach(function (e) {
-        e.media_type = 'movie'
-      })
-      scifi.forEach(function (e) {
-        e.media_type = 'movie'
-      })
-      animated.forEach(function (e) {
-        e.media_type = 'movie'
-      })
-      horror.forEach(function (e) {
-        e.media_type = 'movie'
-      })
 
       return {
         action,

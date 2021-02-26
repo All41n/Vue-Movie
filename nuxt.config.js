@@ -31,6 +31,7 @@ export default {
   */
   plugins: [
     '~plugins/global.js',
+    '~plugins/infiniteScroll.js',
   ],
   /*
   ** Nuxt.js dev-modules

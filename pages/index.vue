@@ -1,11 +1,9 @@
 <template>
   <v-app id="inspire">
     <Showcase :items="gettingRandom" />
-    <v-subheader id="page_subheading">Trending This Week</v-subheader>
-    <v-subheader id="slider__heading">Movies</v-subheader>
-    <Slidegroups :items="movies" :url="trendingMoviesURL('movie')"/>
-    <v-subheader id="slider__heading">TV Series</v-subheader>
-    <Slidegroups :items="tv" :url="trendingTVURL('tv')"/>
+    <v-subheader id="page_heading" >Trending This Week</v-subheader>
+    <Slidegroups :items="movies" :url="trendingMoviesURL('movie')" :title="sliderTitle('Trending Movies')"/>
+    <Slidegroups :items="tv" :url="trendingTVURL('tv')" :title="sliderTitle('Trending Tv Series')"/>
   </v-app>
 </template>
 
@@ -28,6 +26,9 @@ export default {
     trendingTVURL: function (media) {
       return { name: 'tv-trending-trending', params: { name: media } }
     },
+    sliderTitle(title){
+      return title
+    }
   },
   async asyncData({ error }) {
     try {
@@ -49,11 +50,11 @@ export default {
       }
 
       const gettingRandom = getRandom(popular, 5)
-      const trendingMovies = await fetchTrending('movie')
-      const trendingTv = await fetchTrending('tv')
+      const movies = await fetchTrending('movie')
+      const tv = await fetchTrending('tv')
 
-      const movies = [...trendingMovies.results]
-      const tv = [...trendingTv.results]
+      // const movies = [...trendingMovies.results]
+      // const tv = [...trendingTv.results]
 
       return { gettingRandom, movies, tv }
     } catch {
@@ -69,16 +70,11 @@ export default {
   background-color: rgb(230, 230, 230);
 }
 
-#page_subheading {
-  font-size: 25px;
+#page_heading {
+  font-size: 30px;
   color: #4527a0;
   margin-bottom: 10px;
   /* background-color: rgb(230, 230, 230); */
 }
 
-#slider__heading {
-  font-size: 20px;
-  color: #4527a0;
-  /* background-color: rgb(230, 230, 230); */
-}
 </style>

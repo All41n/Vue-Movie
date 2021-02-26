@@ -7,8 +7,14 @@
       large
       @click.stop="dialogInfo = true"
     >
-      <v-card class="ma-3 trending_card" max-width="250">
-        <v-img :src="imgURL + this.items.poster_path"></v-img>
+      <v-card class="ma-3 trending_card" width="150">
+        <v-img
+          class="item_poster"
+          :src="imgURL + this.items.poster_path"
+        ></v-img>
+        <v-card-subtitle>{{
+          this.items.title ? this.items.title : this.items.name
+        }}</v-card-subtitle>
       </v-card>
     </v-btn>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
@@ -23,7 +29,7 @@ export default {
   },
   data() {
     return {
-      imgURL: 'https://image.tmdb.org/t/p/w185_and_h278_bestv2',
+      imgURL: 'https://image.tmdb.org/t/p/w342',
       dialogInfo: false,
     }
   },
@@ -47,20 +53,21 @@ export default {
   color: #212121;
 }
 
-
-.v-slide-group__next, .v-slide-group__prev{
-  min-width:60px !important; 
+.v-slide-group__next,
+.v-slide-group__prev {
+  min-width: 60px !important;
 }
 
-.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
   background: none !important;
 }
 
-.v-btn--contained{
+.v-btn--contained {
   box-shadow: none !important;
 }
 
-.v-btn:not(.v-btn--round).v-size--large{
-  padding:0px;
+.v-btn:not(.v-btn--round).v-size--large {
+  padding: 0px;
 }
+
 </style>
