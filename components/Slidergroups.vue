@@ -62,8 +62,8 @@ export default {
   font-weight: 700;
 }
 
-.hidden_icon_link{
-  color:black !important;
+.hidden_icon_link {
+  color: black !important;
 }
 
 .v-slide-group__wrapper {

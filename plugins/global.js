@@ -6,14 +6,19 @@ Vue.filter('formatYear', function (date) {
     return date.slice(0, 4)
 })
 
-Vue.filter('formatDOB', function(dob){
-    if(!dob) return ''
+Vue.filter('formatDOB', function (dob) {
+    if (!dob) return ''
     return moment(String(dob)).format('DD/MM/YYYY')
 })
 
-Vue.filter('formatRuntime', function(runtime){
-    if(!runtime) return ''
+Vue.filter('formatRuntime', function (runtime) {
+    if (!runtime) return ''
     var hours = Math.floor(runtime / 60);
     var minutes = runtime % 60;
-    return hours + "h" + " " +minutes + "mins";
+    return hours + "h" + " " + minutes + "mins";
+})
+
+Vue.filter('capitalizeFirst', function (word) {
+    if (!word) return ''
+    return word.charAt(0).toUpperCase() + word.slice(1);
 })

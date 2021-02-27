@@ -10,7 +10,7 @@
 <script>
 import Slidegroups from '../components/Slidergroups'
 import Showcase from '../components/Showcase'
-import { fetchMovies, fetchTrending } from '../tmdb/tmdb'
+import { fetchCollections, fetchTrending } from '../tmdb/tmdb'
 /**
  * https://nuxtjs.org/guide/async-data/
  */
@@ -20,11 +20,11 @@ export default {
     Slidegroups,
   },
   methods: {
-    trendingMoviesURL: function (media) {
-      return { name: 'movie-trending-trending', params: { name: media } }
+    trendingMoviesURL: function (mediatype) {
+      return { name: 'discover-media-trending', params: { media: mediatype } }
     },
-    trendingTVURL: function (media) {
-      return { name: 'tv-trending-trending', params: { name: media } }
+    trendingTVURL: function (mediatype) {
+      return { name: 'discover-media-trending', params: { media: mediatype } }
     },
     sliderTitle(title){
       return title
@@ -32,7 +32,7 @@ export default {
   },
   async asyncData({ error }) {
     try {
-      const getPopupar = await fetchMovies('popular')
+      const getPopupar = await fetchCollections('movie','popular')
 
       //return movies at number n
       const popular = [...getPopupar.results]
@@ -50,8 +50,8 @@ export default {
       }
 
       const gettingRandom = getRandom(popular, 5)
-      const movies = await fetchTrending('movie')
-      const tv = await fetchTrending('tv')
+      const movies = await fetchTrending('movie','week')
+      const tv = await fetchTrending('tv','week')
 
       // const movies = [...trendingMovies.results]
       // const tv = [...trendingTv.results]

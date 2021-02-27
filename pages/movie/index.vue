@@ -8,7 +8,7 @@
     />
     <Slidergroups
       :items="trending"
-      :url="trendingMovies('trending')"
+      :url="trendingMovies('movie')"
       :title="sliderTitle('Trending')"
     />
     <Slidergroups
@@ -55,7 +55,7 @@ export default {
       }
     },
     trendingMovies: function (type) {
-      return { name: 'movie-trending-trending', params: { name: type } }
+      return { name: 'discover-media-trending', params: { media: type } }
     },
     sliderTitle(title) {
       return title
@@ -69,7 +69,7 @@ export default {
       const animated = await fetchDiscover('movie', '16')
       const horror = await fetchDiscover('movie', '27')
       const scifi = await fetchDiscover('movie', '878')
-      const trending = await fetchTrending('movie')
+      const trending = await fetchTrending('movie','week')
 
       action.results.forEach(function (e) {
         e.media_type = 'movie'

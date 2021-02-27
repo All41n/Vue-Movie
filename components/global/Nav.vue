@@ -1,17 +1,198 @@
 <template>
   <div>
-    <v-app-bar id="navbar" flat dense fixed elevate-on-scroll collapse-on-scroll>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title v-text="title" class="app_title" />
+    <v-app-bar id="appbar-navbar" flat fixed app>
+      <v-app-bar-nav-icon
+        class="hidden-md-and-up"
+        @click.stop="drawer = !drawer"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title v-text="title" id="app_title" />
+      <v-spacer></v-spacer>
+      <v-text-field
+        flat
+        hide-details
+        append-icon="mdi-magnify"
+        label="Search"
+        outlined
+        dense
+        class="hidden-md-and-down"
+      ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-btn
+        id="router-item"
+        nuxt
+        exact
+        :to="{ name: 'index' }"
+        class="ma-2 hidden-md-and-down"
+      >
+        <v-icon id="router-icon" class="ma-2" size="23">mdi-home</v-icon>
+        Home
+      </v-btn>
+      <v-menu id="movie_menu" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" class="hidden-md-and-down">
+            <v-icon class="ma-2 menu_icon" size="23">mdi-filmstrip</v-icon>
+            Films
+            <v-icon class="ma-2" size="23">mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+        <v-list class="dropdown" width="250">
+          <v-list-item>
+            <v-list-item-content class="text-center">
+              <v-btn
+                :to="{
+                  name: 'movie',
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23"
+                  >mdi-folder-information</v-icon
+                >
+                Index
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'movie', type: 'popular' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23">mdi-chart-line</v-icon>
+                Popular
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'movie', type: 'top_rated' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23">mdi-star</v-icon>
+                Top Rated
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'movie', type: 'now_playing' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23">mdi-play-speed</v-icon>
+                Now Playing
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'movie', type: 'upcoming' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23">mdi-new-box</v-icon>
+                Upcoming
+              </v-btn>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-menu id="series_menu" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" class="hidden-md-and-down">
+            <v-icon class="ma-2 menu_icon" size="23">mdi-filmstrip</v-icon>
+            Series
+            <v-icon class="ma-2" size="23">mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+        <v-list class="dropdown" width="230">
+          <v-list-item>
+            <v-list-item-content class="text-center">
+              <v-btn
+                :to="{
+                  name: 'tv',
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23"
+                  >mdi-folder-information</v-icon
+                >
+                Index
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'tv', type: 'popular' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-1 url_icon" size="23">mdi-chart-line</v-icon>
+                Popular
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'tv', type: 'top_rated' },
+                }"
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23">mdi-star</v-icon>
+                Top Rated
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'tv', type: 'on_the_air' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-1"
+              >
+                <v-icon class="ma-2 url_icon" size="23">mdi-play-speed</v-icon>
+                On The Air
+              </v-btn>
+              <v-btn
+                :to="{
+                  name: 'discover-collections-media-type',
+                  params: { media: 'tv', type: 'airing_today' },
+                }"
+                nuxt
+                exact
+                class="nuxt_url ma-2"
+              >
+                <v-icon class="ma-2 url_icon" size="23"
+                  >mdi-calendar-today</v-icon
+                >
+                Airing Today
+              </v-btn>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
     <v-navigation-drawer
+      class="hidden-lg-and-up"
       v-model="drawer"
       temporary
-      floating
+      :floating="floating"
       app
-      id="drawer"
-      color="transparent"
     >
+      <v-text-field
+        label="Search"
+        single-line
+        filled
+        hide-details
+      ></v-text-field>
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -21,17 +202,15 @@
           exact
         >
           <v-list-item-action>
-            <v-icon id="drawer_icon">{{ item.icon }}</v-icon>
+            <v-icon class="drawer_icon">{{ item.icon }}</v-icon>
           </v-list-item-action>
-
           <v-list-item-content>
-            <v-list-item-title
-              id="drawer_name"
-              v-text="item.title"
-              class="icon__title"
-            />
+            <v-list-item-title class="drawer_title">{{
+              item.title
+            }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item> </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -41,7 +220,7 @@
 export default {
   data() {
     return {
-      clipped: false,
+      title: 'NUXTFLIX',
       drawer: false,
       floating: true,
       items: [
@@ -71,59 +250,44 @@ export default {
           to: '/playground',
         },
       ],
-      miniVariant: false,
-      title: 'Nuxtflix',
     }
   },
 }
 </script>
 
 <style>
-.app_title.v-toolbar__title {
-  font-size: 25px;
+#app_title{
+  font-size:30px;
   color: #4527a0;
   font-weight: 700;
-  letter-spacing: 5px;
 }
 
-#appbar_icon {
+#router-icon {
   color: #4527a0;
 }
 
-#drawer_icon {
+.drawer_icon {
+  color: #4527a0 !important;
+}
+
+.drawer_title {
   color: #4527a0;
 }
 
-#drawer_name {
-  color: #4527a0;
+.nuxt_url {
+  color: white !important;
+  text-decoration: none;
 }
 
-#drawer {
-  width: 256px !important;
-  background-color: white !important;
-  height: 256px !important;
-  top: 43px !important;
-  border-bottom-right-radius: 25px;
+.menu_icon {
+  color: #4527a0 !important;
 }
 
-.v-navigation-drawer__border {
-  background-color: none !important;
+.url_icon {
+  color: white !important;
 }
 
-.v-toolbar.v-toolbar--collapsed {
-  max-width: 256px !important;
+.dropdown {
+  background-color: #4527a0 !important;
 }
-
-.v-toolbar.v-toolbar--collapsed .v-toolbar__title,
-.v-toolbar.v-toolbar--collapsed .v-toolbar__extension {
-  display: inline !important;
-}
-
-.v-application--is-ltr .v-toolbar.v-toolbar--collapsed {
-  border-bottom-right-radius: 10px !important;
-}
-
-/* #navbar {
-  border-bottom-right-radius: 10px;
-} */
 </style>

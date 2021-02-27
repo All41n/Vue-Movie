@@ -1,20 +1,13 @@
 <template>
   <v-container fluid>
     <Featured :items="featured" />
-    <v-subheader id="subheading">Action & Adventure</v-subheader>
-    <Slidergroups :items="actionadventure" :url="exploreURL('tv','Action & Adventure',10759)"/>
-    <v-subheader id="subheading">Trending Now</v-subheader>
-    <Slidergroups :items="trending" :url="trendingTVURL('trending')"/>
-    <v-subheader id="subheading">Comedy</v-subheader>
-    <Slidergroups :items="comedy" :url="exploreURL('tv','Comedy',35)"/>
-    <v-subheader id="subheading">Documentary</v-subheader>
-    <Slidergroups :items="documentary" :url="exploreURL('tv','Documentary',99)"/>
-    <v-subheader id="subheading">Scifi & Fantasy</v-subheader>
-    <Slidergroups :items="scififantasy" :url="exploreURL('tv','Scifi & Fantasy',10765)"/>
-    <v-subheader id="subheading">Drama</v-subheader>
-    <Slidergroups :items="drama" :url="exploreURL('tv','Drama',18)"/>
-    <v-subheader id="subheading">Kids</v-subheader>
-    <Slidergroups :items="kids" :url="exploreURL('tv','Kids',10762)"/>
+    <Slidergroups :items="actionadventure" :url="exploreURL('tv','Action & Adventure',10759)" :title="sliderTitle('Action & Adventure')"/>
+    <Slidergroups :items="trending" :url="trendingTVURL('trending')" :title="sliderTitle('Trending')"/>
+    <Slidergroups :items="comedy" :url="exploreURL('tv','Comedy',35)" :title="sliderTitle('Comedy')"/>
+    <Slidergroups :items="documentary" :url="exploreURL('tv','Documentary',99)" :title="sliderTitle('Documentary')"/>
+    <Slidergroups :items="scififantasy" :url="exploreURL('tv','Scifi & Fantasy',10765)" :title="sliderTitle('Scifi & Fantasy')"/>
+    <Slidergroups :items="drama" :url="exploreURL('tv','Drama',18)" :title="sliderTitle('Drama')"/>
+    <Slidergroups :items="kids" :url="exploreURL('tv','Kids',10762)" :title="sliderTitle('Kids')"/>
   </v-container>
 </template>
 
@@ -32,7 +25,10 @@ export default {
       return {name:'discover-explore-name-id', params:{explore:media, name:genre, id:id}}
     },
     trendingTVURL: function(type){
-      return {name: 'tv-trending-trending', params:{trending:type}}
+      return {name: 'discover-media-trending', params:{media:type}}
+    },
+    sliderTitle:function(title){
+      return title
     }
   },
   async asyncData({ error }) {
@@ -43,7 +39,7 @@ export default {
       const kids = await fetchDiscover('tv', '10762')
       const scififantasy = await fetchDiscover('tv', '10765')
       const drama = await fetchDiscover('tv', '18')
-      const trending = await fetchTrending('tv')
+      const trending = await fetchTrending('tv','week')
 
       const featuredShow = [
         ...actionadventure.results,

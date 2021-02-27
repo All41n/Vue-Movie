@@ -7,9 +7,13 @@ import axios from 'axios';
  * fetchMovies function
  * reference: https://www.digitalocean.com/community/tutorials/vuejs-async-computed-properties
  */
-export function fetchMovies(header) {
+export function fetchCollections(media, header, page = 1) {
     return new Promise((resolve, reject) => {
-        axios.get(`https://api.themoviedb.org/3/movie/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`)
+        axios.get(`https://api.themoviedb.org/3/${media}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`, {
+            params: {
+                page
+            }
+        })
             .then((response) => { resolve(response.data); })
             .catch((error) => {
                 reject(error);
@@ -34,9 +38,9 @@ export function fetchTVShows(header) {
 /**
  * function to fetch list of movies
  */
-export function fetchTrending(header) {
+export function fetchTrending(header, duration) {
     return new Promise((resolve, reject) => {
-        axios.get(`https://api.themoviedb.org/3/trending/${header}/week?api_key=fd88cff7f01965be8612902e680dd82c`)
+        axios.get(`https://api.themoviedb.org/3/trending/${header}/${duration}?api_key=fd88cff7f01965be8612902e680dd82c`)
             .then((response) => {
                 resolve(response.data);
             }).catch((error) => {
@@ -77,10 +81,10 @@ export function fetchTV(header) {
 /**
  * function to fetch animated shows using discover link
  */
-export function fetchDiscover(header, genre,page = 1) {
+export function fetchDiscover(header, genre, page = 1) {
     return new Promise((resolve, reject) => {
-        axios.get(`https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${genre}`,{
-            params:{
+        axios.get(`https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${genre}`, {
+            params: {
                 page
             }
         })

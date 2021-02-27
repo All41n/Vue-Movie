@@ -31,11 +31,6 @@ export default {
     Card,
   },
   methods: {
-    // async fetchShows() {
-    //   const discover = await fetchDiscover(this.media, this.id, this.page)
-    //   this.discover = discover.results
-    //   this.insertMediaType(this.discover, this.media)
-    // },
     async fetchMore($state) {
       const loadMore = await fetchDiscover(this.media, this.id, this.page).then(
         (items) => {
