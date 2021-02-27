@@ -223,33 +223,6 @@ export default {
       title: 'NUXTFLIX',
       drawer: false,
       floating: true,
-      items: [
-        {
-          icon: 'mdi-home',
-          title: 'Home',
-          to: '/',
-        },
-        {
-          icon: 'mdi-movie-open',
-          title: 'Movies',
-          to: '/movie',
-        },
-        {
-          icon: 'mdi-television-box',
-          title: 'TV',
-          to: '/tv',
-        },
-        {
-          icon: 'mdi-folder-multiple-plus',
-          title: 'Discover',
-          to: '/discover',
-        },
-        {
-          icon: 'mdi-toy-brick',
-          title: 'Playground',
-          to: '/playground',
-        },
-      ],
     }
   },
 }
