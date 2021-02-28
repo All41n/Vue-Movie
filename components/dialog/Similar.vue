@@ -1,16 +1,22 @@
 <template>
   <div>
-    <nuxt-link
-      :to="{
-        name: 'discover-similar-name',
-        params: { name: this.title, id: this.id },
-      }"
-      class="nuxt_link"
-    >
-      <div class="d-flex">
-        <h3 class="nuxt_heading">Similar shows as {{ this.title }}</h3>
-      </div>
-    </nuxt-link>
+    <div class="d-flex" v-if="this.items.total_results > 0">
+      <nuxt-link
+        :to="{
+          name: 'discover-similar-media-name-id',
+          params: { media: this.media, name: this.title, id: this.id }
+        }"
+        class="nuxt_link"
+      >
+        <div class="d-flex">
+          <h3 class="nuxt_heading">Similar shows as {{ this.title }}</h3>
+        </div>
+      </nuxt-link>
+    </div>
+    <div class="d-flex" v-else-if="this.items.total_results == 0">
+      <h3 class="nuxt_heading">Similar shows as {{ this.title }}</h3>
+    </div>
+
     <v-row v-if="this.items.total_results > 0" id="holder">
       <v-col
         cols="12"
@@ -95,21 +101,24 @@ export default {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9,
+      limit: 9
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true,
+      required: true
     },
     items: {
       type: Object,
-      required: true,
+      required: true
     },
     id: {
-      required: true,
+      required: true
     },
+    media: {
+      required: true
+    }
   },
   methods: {
     expand() {
@@ -119,13 +128,13 @@ export default {
       } else if (this.limit == this.items.results.length) {
         this.limit = 9
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style>
-#null_message{
+#null_message {
   text-align: center;
 }
 

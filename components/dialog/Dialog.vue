@@ -98,8 +98,14 @@
         :title="this.items.title ? this.items.title : this.items.name"
         :items="this.similars"
         :id="this.items.id"
+        :media="this.items.media_type"
       />
-      <About :title="this.items.title ? this.items.title : this.items.name" :casts="credits.cast" :crews="credits.crew" :mediatype="this.items.media_type"/>
+      <About
+        :title="this.items.title ? this.items.title : this.items.name"
+        :casts="credits.cast"
+        :crews="credits.crew"
+        :mediatype="this.items.media_type"
+      />
     </v-card>
   </v-dialog>
 </template>
@@ -110,7 +116,7 @@ import About from '../../components/dialog/About'
 export default {
   components: {
     Similar,
-    About,
+    About
   },
   data() {
     return {
@@ -121,31 +127,31 @@ export default {
       all_genres: null,
       details: [],
       credits: [],
-      similars: [],
+      similars: []
     }
   },
   props: {
     visible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     items: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   async fetch() {
     this.details = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then((res) => res.json())
+    ).then(res => res.json())
 
     this.credits = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then((res) => res.json())
+    ).then(res => res.json())
 
     this.similars = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
-    ).then((res) => res.json())
+    ).then(res => res.json())
   },
   computed: {
     castsToDisplay() {
@@ -161,9 +167,9 @@ export default {
         if (!value) {
           this.$emit('close')
         }
-      },
-    },
-  },
+      }
+    }
+  }
 }
 </script>
 

@@ -40,7 +40,7 @@
             <v-list-item-content class="text-center">
               <v-btn
                 :to="{
-                  name: 'movie',
+                  name: 'movie'
                 }"
                 nuxt
                 exact
@@ -54,7 +54,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'popular' },
+                  params: { media: 'movie', type: 'popular' }
                 }"
                 nuxt
                 exact
@@ -66,7 +66,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'top_rated' },
+                  params: { media: 'movie', type: 'top_rated' }
                 }"
                 nuxt
                 exact
@@ -78,7 +78,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'now_playing' },
+                  params: { media: 'movie', type: 'now_playing' }
                 }"
                 nuxt
                 exact
@@ -90,7 +90,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'upcoming' },
+                  params: { media: 'movie', type: 'upcoming' }
                 }"
                 nuxt
                 exact
@@ -116,7 +116,7 @@
             <v-list-item-content class="text-center">
               <v-btn
                 :to="{
-                  name: 'tv',
+                  name: 'tv'
                 }"
                 nuxt
                 exact
@@ -130,7 +130,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'popular' },
+                  params: { media: 'tv', type: 'popular' }
                 }"
                 nuxt
                 exact
@@ -142,7 +142,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'top_rated' },
+                  params: { media: 'tv', type: 'top_rated' }
                 }"
                 class="nuxt_url ma-2"
               >
@@ -152,7 +152,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'on_the_air' },
+                  params: { media: 'tv', type: 'on_the_air' }
                 }"
                 nuxt
                 exact
@@ -164,7 +164,7 @@
               <v-btn
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'airing_today' },
+                  params: { media: 'tv', type: 'airing_today' }
                 }"
                 nuxt
                 exact
@@ -223,14 +223,41 @@ export default {
       title: 'NUXTFLIX',
       drawer: false,
       floating: true,
+      items: [
+        {
+          icon: 'mdi-home',
+          title: 'Home',
+          to: '/'
+        },
+        {
+          icon: 'mdi-movie-open',
+          title: 'Movies',
+          to: '/movie'
+        },
+        {
+          icon: 'mdi-television-box',
+          title: 'TV',
+          to: '/tv'
+        },
+        {
+          icon: 'mdi-folder-multiple-plus',
+          title: 'Discover',
+          to: '/discover'
+        },
+        {
+          icon: 'mdi-toy-brick',
+          title: 'Playground',
+          to: '/playground'
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 
 <style>
-#app_title{
-  font-size:30px;
+#app_title {
+  font-size: 30px;
   color: #4527a0;
   font-weight: 700;
 }
