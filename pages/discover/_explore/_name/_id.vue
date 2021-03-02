@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <h3 id="discover_title">{{ this.title }}</h3>
-    <v-row justify="center" align="center" class="pt-5">
+    <h3 id="discover_title" class="discover_title">{{ this.title }}</h3>
+    <v-row justify="space-between" class="ma-0 pa-0">
       <Card v-for="(item, i) in discover" :key="i" :items="item" />
     </v-row>
     <client-only>
@@ -58,10 +58,12 @@ export default {
 </script>
 
 <style>
-#discover_title {
-  color: #4527a0;
-  font-size: 40px;
-  text-align: center;
+.discover_title {
+  color: black !important;
+  font-size: 35px;
   letter-spacing: 10px;
+  margin-left: 20px;
+  margin-top: 15px;
+  /* margin-bottom: -px; */
 }
 </style>

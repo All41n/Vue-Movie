@@ -4,7 +4,7 @@
       <nuxt-link
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id }
+          params: { media: this.media, name: this.title, id: this.id },
         }"
         class="nuxt_link"
       >
@@ -17,7 +17,7 @@
       <h3 class="nuxt_heading">Similar shows as {{ this.title }}</h3>
     </div>
 
-    <v-row v-if="this.items.total_results > 0" id="holder">
+    <v-row v-if="this.items.total_results > 0" id="holder" class="holder">
       <v-col
         cols="12"
         sm="4"
@@ -35,13 +35,13 @@
                 : require('../../assets/placeholder.png')
             "
           >
-            <v-card-text id="similar_details" class="white--text">{{
+            <v-card-text id="item_details" class="item_details white--text">{{
               item.title ? item.title : item.name
             }}</v-card-text></v-img
           >
 
           <v-rating
-            id="similar_details"
+            id="item_details"
             readonly
             small
             half-increments
@@ -50,7 +50,7 @@
             :value="item.vote_average / 2"
           ></v-rating>
           <v-card-text
-            id="similar_details"
+            id="item_details"
             v-if="item.release_date != null || item.first_air_date != null"
             >{{
               item.release_date
@@ -59,7 +59,7 @@
             }}</v-card-text
           >
           <v-card-text
-            id="similar_details"
+            id="item_details"
             v-if="item.release_date == null && item.first_air_date == null"
             >Coming Soon!</v-card-text
           >
@@ -74,17 +74,20 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-else-if="this.items.total_results === 0" id="holder">
+    <v-row
+      v-else-if="this.items.total_results === 0"
+      id="holder"
+      class="holder"
+    >
       <v-col
-        ><h4 id="null_message">
+        ><h4 id="null_message" class="null_message">
           Unable to find similar shows as {{ this.title }}.
         </h4></v-col
       >
     </v-row>
     <v-btn
-      color="deep-purple darken-3"
-      pink
       id="expand_btn"
+      class="expand_btn"
       :style="{ left: '50%', transform: 'translateX(-50%)' }"
       v-if="this.items.results.length > 6"
       @click="expand"
@@ -101,24 +104,24 @@ export default {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9
+      limit: 9,
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true
+      required: true,
     },
     items: {
       type: Object,
-      required: true
+      required: true,
     },
     id: {
-      required: true
+      required: true,
     },
     media: {
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     expand() {
@@ -128,35 +131,38 @@ export default {
       } else if (this.limit == this.items.results.length) {
         this.limit = 9
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style>
-#null_message {
+.null_message {
   text-align: center;
 }
 
-#similar_details {
+.item_details {
   text-align: center;
 }
 
-#holder {
+.holder {
   margin: 0px;
-}
-
-#section_identifier {
-  margin-left: 10px;
 }
 
 #expand_btn {
   border-radius: 0px;
   background-color: rgb(69, 39, 160) !important;
-  color: white;
+  color: white !important;
   width: 100%;
   height: 50px;
 }
+
+/* .expand_btn {
+  width: 100%;
+  border-radius: 0px !important;
+  background-color: rgb(69, 39, 160) !important;
+  /* background-color: rgb(69, 39, 160) !important; */
+/* } */
 
 .null_message {
   text-align: center;

@@ -1,12 +1,11 @@
 <template>
-  <v-card>
+  <v-card id="about_holder" tile color="rgb(230,230,230)">
     <v-card-title>About {{ this.title }}</v-card-title>
     <v-card-subtitle v-if="this.mediatype == 'movie'">
       Director:
       <v-chip
-        small
         dark
-        label
+        pill
         class="ma-1"
         color="deep-purple darken-3"
         v-if="this.crews.length == 0"
@@ -18,9 +17,8 @@
         :to="{ name: 'discover-credits-credits', query: { id: crew.id } }"
       >
         <v-chip
-          small
           dark
-          label
+          pill
           class="ma-1"
           color="deep-purple darken-3"
           v-if="crew.job == 'Director'"
@@ -34,10 +32,10 @@
       <v-chip
         small
         dark
-        label
+        pill
         class="ma-1"
         color="deep-purple darken-3"
-        v-if="this.crews.length == 0 || this.crews.length == 1 "
+        v-if="this.crews.length == 0 || this.crews.length == 1"
         >No Creator found for {{ this.title }}
       </v-chip>
       <nuxt-link
@@ -48,7 +46,7 @@
         <v-chip
           small
           dark
-          label
+          pill
           class="ma-1"
           color="deep-purple darken-3"
           v-if="
@@ -64,9 +62,8 @@
     <v-card-subtitle>
       Cast:
       <v-chip
-        small
         dark
-        label
+        pill
         class="ma-1"
         color="deep-purple darken-3"
         v-if="this.casts.length == 0"
@@ -74,26 +71,49 @@
         No Cast found for {{ this.title }}</v-chip
       >
       <nuxt-link
-        v-for="(cast, ca) in this.casts.slice(0,12)"
+        v-for="(cast, ca) in this.casts.slice(0, 12)"
         :key="ca"
         :to="{ name: 'discover-credits-credits', query: { id: cast.id } }"
+        class="cast_url"
       >
-        <v-chip
-          small
-          dark
-          label
-          class="ma-1"
-          color="deep-purple darken-3"
-        >
+        <v-chip dark pill class="ma-1" color="deep-purple darken-3">
           {{ cast.name }}
         </v-chip>
       </nuxt-link>
+    </v-card-subtitle>
+    <v-card-subtitle>
+      Production Companies:
+      <!-- <v-img
+        v-for="(company, c) in this.companies"
+        :key="c"
+        :src="logo + company.logo_path"
+        width="150"
+      ></v-img> -->
+      <v-chip
+        id="company_chips"
+        color="deep-purple darken-3"
+        class="company_chips ma-1"
+        dark
+        pill
+        v-for="(company, c) in this.companies"
+        :key="c"
+      >
+        <v-avatar>
+          <v-img :src="logo + company.logo_path" contain></v-img>
+        </v-avatar>
+        {{ company.name }}
+      </v-chip>
     </v-card-subtitle>
   </v-card>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      logo: 'https://image.tmdb.org/t/p/w185',
+    }
+  },
   props: {
     title: {
       type: String,
@@ -111,9 +131,21 @@ export default {
       type: String,
       required: true,
     },
+    companies: {
+      type: Array,
+      required: true,
+    },
   },
 }
 </script>
 
 <style>
+.company_chips {
+  pointer-events: none !important;
+}
+
+.cast_url {
+  /* font-size:10px !important; */
+  text-decoration: none;
+}
 </style>

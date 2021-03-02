@@ -1,11 +1,12 @@
 <template>
   <v-dialog v-model="show" max-width="900px">
-    <v-card id="dialog">
+    <v-card id="dialog" class="item_dialog">
       <v-btn fixed id="close" icon dark flat @click.stop="show = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-img
         id="backgdrop"
+        class="backdrop"
         height="auto"
         width="900"
         :src="imgURL3 + this.items.backdrop_path"
@@ -17,7 +18,7 @@
           id="poster"
           width="250"
           contain
-          class="hidden-sm-and-down"
+          class="poster hidden-sm-and-down"
           :src="imgURL2 + this.items.poster_path"
         ></v-img>
       </div>
@@ -25,20 +26,21 @@
         <v-col>
           <v-rating
             id="rating"
+            class="star_rating"
             :value="this.items.vote_average / 2"
             background-color="purple lighten-3"
             color="purple"
             readonly
             half-increments
           ></v-rating>
-          <p id="tagline" v-if="!details.tagline"></p>
-          <p id="tagline" v-else-if="details.tagline">
+          <p class="tagline" v-if="!details.tagline"></p>
+          <p class="tagline" v-else-if="details.tagline">
             "{{ details.tagline }}"
           </p>
           <v-card-title id="title">
             {{ this.items.title ? this.items.title : this.items.name }}
           </v-card-title>
-          <v-card-subtitle id="runtime">
+          <v-card-subtitle id="runtime" class="runtime">
             {{
               this.items.release_date
                 ? this.items.release_date
@@ -46,7 +48,9 @@
             }}
             {{ details.runtime | formatRuntime }}
           </v-card-subtitle>
-          <v-card-text id="overview">{{ this.items.overview }}</v-card-text>
+          <v-card-text id="overview" class="overview">{{
+            this.items.overview
+          }}</v-card-text>
         </v-col>
 
         <v-col>
@@ -56,7 +60,8 @@
               id="genre__chip"
               small
               class="ma-1"
-              label
+              pill
+              dark
               v-for="(genre, g) in details.genres"
               :key="g"
               color="purple darken-2"
@@ -67,10 +72,11 @@
           <v-card-text v-if="this.credits.cast != 0">
             Cast:
             <v-chip
-              id="genre__chip"
+              id="cast_chip"
               small
-              class="ma-1"
-              label
+              class="ma-1 cast_chip"
+              pill
+              dark
               v-for="(cast, c) in castsToDisplay"
               :key="c"
               color="indigo darken-3"
@@ -81,9 +87,10 @@
           <v-card-text v-else-if="this.credits.cast == 0">
             Cast:
             <v-chip
-              id="genre__chip"
               small
-              class="ma-1"
+              class="ma-1 cast_chip"
+              pill
+              dark
               label
               color="indigo darken-3"
             >
@@ -94,6 +101,11 @@
           </v-card-text>
         </v-col>
       </v-row>
+      <Episodes
+        v-if="this.items.media_type == 'tv'"
+        :seasons="this.details.seasons"
+        :seriesID="this.details.id"
+      />
       <Similar
         :title="this.items.title ? this.items.title : this.items.name"
         :items="this.similars"
@@ -105,6 +117,7 @@
         :casts="credits.cast"
         :crews="credits.crew"
         :mediatype="this.items.media_type"
+        :companies="this.details.production_companies"
       />
     </v-card>
   </v-dialog>
@@ -113,10 +126,12 @@
 <script>
 import Similar from '../../components/dialog/Similar'
 import About from '../../components/dialog/About'
+import Episodes from '../../components/dialog/Episodes'
 export default {
   components: {
     Similar,
-    About
+    About,
+    Episodes,
   },
   data() {
     return {
@@ -127,31 +142,31 @@ export default {
       all_genres: null,
       details: [],
       credits: [],
-      similars: []
+      similars: [],
     }
   },
   props: {
     visible: {
       type: Boolean,
-      required: true
+      required: true,
     },
     items: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   async fetch() {
     this.details = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     this.credits = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     this.similars = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
-    ).then(res => res.json())
+    ).then((res) => res.json())
   },
   computed: {
     castsToDisplay() {
@@ -167,9 +182,9 @@ export default {
         if (!value) {
           this.$emit('close')
         }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 
@@ -181,9 +196,9 @@ export default {
   font-size: 22px;
 }
 
-#dialog {
+.item_dialog {
   position: relative;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(230, 230, 230) !important;
   overflow-x: hidden;
 }
 
@@ -195,41 +210,37 @@ export default {
   z-index: 10;
 }
 
-#backdrop {
+.backdrop {
   position: relative;
 }
 
-#poster {
+.poster {
   position: absolute;
   z-index: 9;
   top: 46px;
   /*left:25px; */
 }
 
-#rating {
+.star_rating {
   position: relative;
   top: 10px;
   left: 20px;
 }
 
-#runtime {
+.runtime {
   position: relative;
   font-size: 15px;
   font-weight: 450;
   left: 15px;
-  color: black;
+  color: black !important;
 }
 
-#genre__chip {
-  color: white;
-}
-
-#overview {
+.overview {
   position: relative;
   left: 15px;
 }
 
-#tagline {
+.tagline {
   position: relative;
   top: 15px;
   left: 20px;

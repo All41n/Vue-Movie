@@ -159,7 +159,7 @@ export function fetchPeople(header) {
 }
 
 /**
- *  https://api.themoviedb.org/3/movie/201984/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1
+ *  fetchSimilar Shows
  */
 export function fetchSimilar(media, id, page = 1) {
   return new Promise((resolve, reject) => {
@@ -171,6 +171,25 @@ export function fetchSimilar(media, id, page = 1) {
             page
           }
         }
+      )
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+// https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key=<<api_key>>&language=en-US
+/**
+ * fetch Tv Seasons
+ */
+export function fetchEpisodes(id, season) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${season}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
       )
       .then(response => {
         resolve(response.data)

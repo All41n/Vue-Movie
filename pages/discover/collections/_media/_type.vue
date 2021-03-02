@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <v-subheader id="page_identifier">
+    <v-subheader id="page_identifier" class="page_identifier">
       {{ this.$route.params.type | capitalizeFirst }}
     </v-subheader>
-    <v-row justify="center" class="pt-1">
+    <v-row justify="space-between" class="ma-0 pa-0">
       <Card v-for="(item, i) in collections" :key="i" :items="item" />
     </v-row>
     <client-only>
@@ -59,9 +59,9 @@ export default {
 </script>
 
 <style>
-#page_identifier {
+.page_identifier {
   font-size: 30px;
-  color: #4527a0;
+  color: #4527a0 !important;
   font-weight: 800;
 }
 </style>

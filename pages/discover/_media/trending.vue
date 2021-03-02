@@ -3,23 +3,24 @@
     <div>
       <v-subheader
         id="media_identifier"
+        class="media_identifier"
         v-if="this.$route.params.media == 'movie'"
       >
         Trending {{ this.$route.params.media }}s
       </v-subheader>
       <v-subheader
-        id="media_identifier"
+        class="media_identifier"
         v-else-if="this.$route.params.media == 'tv'"
       >
         Trending {{ this.$route.params.media }} series
       </v-subheader>
     </div>
-    <v-subeader id="section_identifier">Trending this week</v-subeader>
-    <v-row justify="center" class="pt-1">
+    <v-subeader class="section_identifier">Trending this week</v-subeader>
+    <v-row justify="space-between" class="pt-1">
       <Card v-for="(item, i) in week.results" :key="i" :items="item" />
     </v-row>
-    <v-subeader id="section_identifier">Trending today</v-subeader>
-    <v-row justify="center" class="pt-1">
+    <v-subeader class="section_identifier">Trending today</v-subeader>
+    <v-row justify="space-between" class="pt-1">
       <Card v-for="(item, i) in today.results" :key="i" :items="item" />
     </v-row>
   </v-container>
@@ -51,19 +52,19 @@ export default {
 </script>
 
 <style>
-#media_identifier {
+.media_identifier {
   font-size: 30px;
   font-weight: 700;
   margin-top: 10px;
   margin-bottom: 10px;
-  color: #4527a0;
+  color: #4527a0 !important;
 }
 
-#section_identifier {
-  font-size: 20px;
+.section_identifier {
+  font-size: 25px;
   font-weight: 700;
   margin-bottom: -15px;
   margin-left: 20px;
-  color: black;
+  color: black !important;
 }
 </style>

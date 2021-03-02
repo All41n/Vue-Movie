@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <v-subheader id="page_heading"
+    <v-subheader id="page_heading" class="page_heading"
       >Similar shows as {{ this.title }}</v-subheader
     >
-    <v-row justify="center" class="pt-5">
+    <v-row justify="space-between" class="ma-0 pa-0">
       <Card v-for="(item, i) in similar" :key="i" :items="item" />
     </v-row>
     <client-only>
@@ -62,10 +62,10 @@ export default {
 </script>
 
 <style>
-#page_heading {
+.page_heading {
   font-size: 27px;
   font-weight: 700;
-  color: black;
-  margin-bottom: -15px;
+  color: black !important;
+  /* margin-bottom: -15px; */
 }
 </style>
