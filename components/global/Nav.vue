@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar id="appbar-navbar" flat fixed app>
+    <v-app-bar id="appbar-navbar" elevate-on-scroll fixed app>
       <v-app-bar-nav-icon
         class="hidden-md-and-up"
         @click.stop="drawer = !drawer"
@@ -9,7 +9,6 @@
       <v-spacer></v-spacer>
       <v-text-field
         flat
-        hide-details
         append-icon="mdi-magnify"
         label="Search"
         outlined

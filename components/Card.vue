@@ -1,22 +1,28 @@
 <template>
   <div>
-    <v-btn
-      height="auto"
-      width="auto"
-      class="modal_btn"
-      large
-      @click.stop="dialogInfo = true"
-    >
-      <v-card class="ma-3 trending_card" width="150">
-        <v-img
-          class="item_poster"
-          :src="imgURL + this.items.poster_path"
-        ></v-img>
-        <v-card-subtitle>{{
-          this.items.title ? this.items.title : this.items.name
-        }}</v-card-subtitle>
-      </v-card>
-    </v-btn>
+    <v-card class="ma-2 trending_card" @click.stop="dialogInfo = true">
+      <v-img
+        class="item_poster"
+        :src="
+          items.poster_path != null
+            ? imgURL + this.items.poster_path
+            : 'https://via.placeholder.com/150x250/4527a0/FFFFF?text=NUXTFLIX'
+        "
+      >
+        <v-progress-circular
+          :size="50"
+          :value="percentage"
+          color="amber accent-4"
+          >{{ percentage }}
+          <v-icon color="amber accent-4" class="percent_sign" size="15"
+            >mdi-percent</v-icon
+          ></v-progress-circular
+        >
+      </v-img>
+      <v-card-subtitle class="show_title white--text">{{
+        items.title ? items.title : items.name
+      }}</v-card-subtitle>
+    </v-card>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
   </div>
 </template>
@@ -25,28 +31,39 @@
 import Dialog from '../components/dialog/Dialog'
 export default {
   components: {
-    Dialog,
+    Dialog
   },
   data() {
     return {
       imgURL: 'https://image.tmdb.org/t/p/w342',
       dialogInfo: false,
+      overlay: false
     }
   },
   props: {
     items: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
+  computed: {
+    percentage() {
+      return Math.round((this.items.vote_average / 10) * 100)
+    }
+  }
 }
 </script>
 
 <style>
 .trending_card {
-  background: none !important;
-  box-shadow: none !important;
+  background: #4527a0 !important;
+  width: 180px;
+  height: 320px;
 }
+
+/* .percent_sign {
+  color: white !important;
+} */
 
 #movie_title {
   font-size: 15px;
@@ -58,16 +75,22 @@ export default {
   min-width: 60px !important;
 }
 
-.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+/* .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
   background: none !important;
-}
+}*/
 
 .v-btn--contained {
   box-shadow: none !important;
 }
 
-.v-btn:not(.v-btn--round).v-size--large {
-  padding: 0px;
+.show_title {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
+/* .v-btn:not(.v-btn--round).v-size--large {
+  padding: 0px;
+}  */
 </style>

@@ -4,59 +4,60 @@
     <v-select
       id="season_selector"
       class="season_selector"
-      v-model="season_number"
+      v-model="defaultSeason.season_number"
       :items="this.seasons"
       item-text="name"
       item-value="season_number"
       dense
       outlined
-      @change="getEpisodes"
+      v-on:change="getEpisodes"
     ></v-select>
     <div v-if="episodes">
-      <Episodecard
-        v-for="(episode, ep) in episodes"
-        :key="ep"
-        :episodes="episode"
-      />
+      <Episodecard :items="this.episodes" />
     </div>
     <!-- <p>{{ this.seasons }}</p> -->
   </div>
 </template>
 
 <script>
-import Episodecard from '../dialog/card/Episodecard'
-import { fetchEpisodes } from '../../tmdb/tmdb'
+import Episodecard from '../../dialog/card/Episodecard'
+import { fetchEpisodes } from '../../../tmdb/tmdb'
 export default {
   data() {
     return {
-      season_number: 1,
-      episodes: [],
+      defaultSeason: {
+        season_number: 1,
+        episode: null
+      },
+      // season_number: 1,
+      episodes: []
     }
   },
   components: {
-    Episodecard,
+    Episodecard
   },
   props: {
     seriesID: {
       type: Number,
-      required: true,
+      required: true
     },
     seasons: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     getEpisodes() {
-      fetchEpisodes(this.seriesID, this.season_number).then((items) => {
-        if (items.episodes.length) {
-          this.episodes = items.episodes
-        } else {
-          return
+      fetchEpisodes(this.seriesID, this.defaultSeason.season_number).then(
+        items => {
+          this.episodes = items
         }
-      })
-    },
+      )
+    }
   },
+  created() {
+    this.getEpisodes()
+  }
 }
 </script>
 
@@ -65,5 +66,11 @@ export default {
   width: 150px;
   position: absolute;
   left: 15px;
+}
+
+#page_subheading {
+  font-size: 20px;
+  font-weight: 700;
+  color: black !important;
 }
 </style>

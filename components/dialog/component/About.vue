@@ -14,7 +14,10 @@
       <nuxt-link
         v-for="(crew, cr) in this.crews"
         :key="cr"
-        :to="{ name: 'discover-credits-credits', query: { id: crew.id } }"
+        :to="{
+          name: 'discover-credits-name-id',
+          params: { name: crew.name, id: crew.id }
+        }"
       >
         <v-chip
           dark
@@ -73,7 +76,10 @@
       <nuxt-link
         v-for="(cast, ca) in this.casts.slice(0, 12)"
         :key="ca"
-        :to="{ name: 'discover-credits-credits', query: { id: cast.id } }"
+        :to="{
+          name: 'discover-credits-name-id',
+          params: { name: cast.name, id: cast.id }
+        }"
         class="cast_url"
       >
         <v-chip dark pill class="ma-1" color="deep-purple darken-3">
@@ -81,7 +87,7 @@
         </v-chip>
       </nuxt-link>
     </v-card-subtitle>
-    <v-card-subtitle>
+    <v-card-subtitle v-if="this.companies.length">
       Production Companies:
       <!-- <v-img
         v-for="(company, c) in this.companies"
@@ -98,7 +104,7 @@
         v-for="(company, c) in this.companies"
         :key="c"
       >
-        <v-avatar>
+        <v-avatar v-if="company.logo_path">
           <v-img :src="logo + company.logo_path" contain></v-img>
         </v-avatar>
         {{ company.name }}
@@ -111,31 +117,31 @@
 export default {
   data() {
     return {
-      logo: 'https://image.tmdb.org/t/p/w185',
+      logo: 'https://image.tmdb.org/t/p/w185'
     }
   },
   props: {
     title: {
       type: String,
-      required: true,
+      required: true
     },
     casts: {
       type: Array,
-      required: true,
+      required: true
     },
     crews: {
       type: Array,
-      required: true,
+      required: true
     },
     mediatype: {
       type: String,
-      required: true,
+      required: true
     },
     companies: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 }
 </script>
 

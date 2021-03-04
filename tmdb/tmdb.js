@@ -147,7 +147,13 @@ export function fetchPeople(header) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        ` https://api.themoviedb.org/3/person/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+        ` https://api.themoviedb.org/3/person/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`,
+        {
+          params: {
+            append_to_response:
+              'movie_credits,tv_credits,external_ids,images,videos,content_ratings'
+          }
+        }
       )
       .then(response => {
         resolve(response.data)

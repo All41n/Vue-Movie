@@ -9,7 +9,11 @@
         class="backdrop"
         height="auto"
         width="900"
-        :src="imgURL3 + this.items.backdrop_path"
+        :src="
+          this.items.backdrop_path != null
+            ? backdrop + this.items.backdrop_path
+            : 'https://via.placeholder.com/1920x1080/4527a0/FFFFF?text=NUXTFLIX'
+        "
         gradient="to top, rgba(230,230,230,1), rgba(230,230,230,0.4)"
       >
       </v-img>
@@ -19,20 +23,46 @@
           width="250"
           contain
           class="poster hidden-sm-and-down"
-          :src="imgURL2 + this.items.poster_path"
+          :src="
+            this.items.poster_path != null
+              ? poster + this.items.poster_path
+              : 'https://via.placeholder.com/250x450/4527a0/FFFFF?text=NUXTFLIX'
+          "
         ></v-img>
       </div>
       <v-row>
-        <v-col>
-          <v-rating
-            id="rating"
-            class="star_rating"
-            :value="this.items.vote_average / 2"
-            background-color="purple lighten-3"
-            color="purple"
-            readonly
-            half-increments
-          ></v-rating>
+        <v-col class="pt-0">
+          <span>
+            <v-progress-circular
+              :size="50"
+              :value="percentage"
+              class="percentage_rating"
+              color="amber accent-4"
+              >{{ percentage }}
+              <v-icon color="amber accent-4" class="percent_sign" size="15"
+                >mdi-percent</v-icon
+              ></v-progress-circular
+            >
+            <p class="user_score_text">User<br />Score</p>
+          </span>
+          <div class="star_amount">
+            <p>
+              <v-icon size="30" color="amber darken-4">mdi-star</v-icon
+              >{{ this.items.vote_average }}/10
+            </p>
+          </div>
+          <div class="star_rating">
+            <!-- <v-rating
+              id="rating"
+              class="star_rating"
+              :value="this.items.vote_average / 2"
+              background-color="purple lighten-3"
+              color="purple"
+              readonly
+              half-increments
+            >
+            </v-rating> -->
+          </div>
           <p class="tagline" v-if="!details.tagline"></p>
           <p class="tagline" v-else-if="details.tagline">
             "{{ details.tagline }}"
@@ -108,7 +138,7 @@
       />
       <Similar
         :title="this.items.title ? this.items.title : this.items.name"
-        :items="this.similars"
+        :items="similars"
         :id="this.items.id"
         :media="this.items.media_type"
       />
@@ -124,49 +154,49 @@
 </template>
 
 <script>
-import Similar from '../../components/dialog/Similar'
-import About from '../../components/dialog/About'
-import Episodes from '../../components/dialog/Episodes'
+import Similar from '../../components/dialog/component/Similar'
+import About from '../../components/dialog/component/About'
+import Episodes from '../../components/dialog/component/Episodes'
 export default {
   components: {
     Similar,
     About,
-    Episodes,
+    Episodes
   },
   data() {
     return {
-      imgURL3: 'https://image.tmdb.org/t/p/w780',
-      imgURL2: 'https://image.tmdb.org/t/p/w342',
+      backdrop: 'https://image.tmdb.org/t/p/w780',
+      poster: 'https://image.tmdb.org/t/p/w342',
       genres: null,
       loading: false,
       all_genres: null,
       details: [],
       credits: [],
-      similars: [],
+      similars: []
     }
   },
   props: {
     visible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     items: {
-      type: Object,
-      required: true,
-    },
+      type: [Array, Object],
+      required: true
+    }
   },
   async fetch() {
     this.details = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then((res) => res.json())
+    ).then(res => res.json())
 
     this.credits = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then((res) => res.json())
+    ).then(res => res.json())
 
     this.similars = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
-    ).then((res) => res.json())
+    ).then(res => res.json())
   },
   computed: {
     castsToDisplay() {
@@ -182,9 +212,12 @@ export default {
         if (!value) {
           this.$emit('close')
         }
-      },
+      }
     },
-  },
+    percentage() {
+      return Math.round((this.items.vote_average / 10) * 100)
+    }
+  }
 }
 </script>
 
@@ -221,7 +254,7 @@ export default {
   /*left:25px; */
 }
 
-.star_rating {
+.percentage_rating {
   position: relative;
   top: 10px;
   left: 20px;
@@ -247,5 +280,17 @@ export default {
   font-variant: initial;
   font-style: italic;
   font-size: 20px;
+}
+
+.user_score_text {
+  position: relative;
+  left: 75px;
+  bottom: 37px;
+}
+
+.star_amount {
+  position: relative;
+  left: 130px;
+  bottom: 95px;
 }
 </style>

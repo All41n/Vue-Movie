@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="d-flex" v-if="this.items.total_results > 0">
+    <div class="d-flex pt-3" v-if="this.items.total_results > 0">
       <nuxt-link
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id },
+          params: { media: this.media, name: this.title, id: this.id }
         }"
         class="nuxt_link"
       >
@@ -32,7 +32,7 @@
             :src="
               item.backdrop_path != null
                 ? IMG + item.backdrop_path
-                : require('../../assets/placeholder.png')
+                : 'https://via.placeholder.com/1920x1080/4527a0/FFFFF?text=NUXTFLIX'
             "
           >
             <v-card-text id="item_details" class="item_details white--text">{{
@@ -41,7 +41,7 @@
           >
 
           <v-rating
-            id="item_details"
+            class="item_details"
             readonly
             small
             half-increments
@@ -50,7 +50,7 @@
             :value="item.vote_average / 2"
           ></v-rating>
           <v-card-text
-            id="item_details"
+            class="item_details"
             v-if="item.release_date != null || item.first_air_date != null"
             >{{
               item.release_date
@@ -59,7 +59,7 @@
             }}</v-card-text
           >
           <v-card-text
-            id="item_details"
+            class="item_details"
             v-if="item.release_date == null && item.first_air_date == null"
             >Coming Soon!</v-card-text
           >
@@ -98,30 +98,30 @@
 </template>
 
 <script>
-import Dialog from '../../components/dialog/Dialog'
+import Dialog from '../../../components/dialog/Dialog'
 export default {
   data() {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9,
+      limit: 9
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true,
+      required: true
     },
     items: {
-      type: Object,
-      required: true,
+      type: Array,
+      required: true
     },
     id: {
-      required: true,
+      required: true
     },
     media: {
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     expand() {
@@ -131,8 +131,8 @@ export default {
       } else if (this.limit == this.items.results.length) {
         this.limit = 9
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
