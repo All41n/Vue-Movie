@@ -4,7 +4,7 @@
       <nuxt-link
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id },
+          params: { media: this.media, name: this.title, id: this.id }
         }"
         class="nuxt_link"
       >
@@ -14,7 +14,11 @@
           </h3>
           <h3 class="hidden_nuxt_link hidden-lg-and-up">
             Simimlar shows as {{ this.title }}
-            <span class="explore_all_text">Explore All<v-icon class="small_screen_icon" size="25">mdi-chevron-right</v-icon></span>
+            <span class="explore_all_text"
+              >Explore All<v-icon class="small_screen_icon" size="25"
+                >mdi-chevron-right</v-icon
+              ></span
+            >
           </h3>
         </div>
       </nuxt-link>
@@ -54,15 +58,6 @@
           <v-card-text id="item_details" class="item_title black--text">{{
             item.title ? item.title : item.name
           }}</v-card-text>
-          <!-- <v-rating
-            class="item_details"
-            readonly
-            small
-            half-increments
-            background-color="deep-purple darken-3"
-            color="deep-purple darken-3"
-            :value="item.vote_average / 2"
-          ></v-rating> -->
           <v-card-text
             class="item_details"
             v-if="item.release_date != null || item.first_air_date != null"
@@ -100,6 +95,17 @@
       >
     </v-row>
     <v-btn
+      v-if="this.items.results.length == limit"
+      nuxt
+      exact
+      :to="{
+        name: 'discover-similar-media-name-id',
+        params: { media: this.media, name: this.title, id: this.id }
+      }"
+    >
+      Explore All
+    </v-btn>
+    <v-btn
       id="expand_btn"
       class="expand_btn"
       :style="{ left: '50%', transform: 'translateX(-50%)' }"
@@ -118,24 +124,24 @@ export default {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9,
+      limit: 9
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true,
+      required: true
     },
     items: {
       type: Object,
-      required: true,
+      required: true
     },
     id: {
-      required: true,
+      required: true
     },
     media: {
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     expand() {
@@ -148,9 +154,9 @@ export default {
     },
     percentage(vote) {
       return Math.round((vote / 10) * 100)
-    },
+    }
   },
-  computed: {},
+  computed: {}
 }
 </script>
 
@@ -231,15 +237,15 @@ export default {
   font-size: 20px;
 }
 
-.explore_all_text{
+.explore_all_text {
   margin-left: 10px;
-  font-size:15px;
-  color:black;
+  font-size: 15px;
+  color: black;
 }
 
-.small_screen_icon{
+.small_screen_icon {
   margin-left: -5px;
-  margin-top:-3px;
-  color:black !important;
+  margin-top: -3px;
+  color: black !important;
 }
 </style>

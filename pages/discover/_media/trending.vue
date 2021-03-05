@@ -15,11 +15,11 @@
         Trending {{ this.$route.params.media }} series
       </v-subheader>
     </div>
-    <v-subeader class="section_identifier">Trending this week</v-subeader>
+    <v-subheader class="section_identifier">Trending this week</v-subheader>
     <v-row justify="center" class="ma-0 pa-0 pt-1">
       <Card v-for="(item, i) in week.results" :key="i" :items="item" />
     </v-row>
-    <v-subeader class="section_identifier">Trending today</v-subeader>
+    <v-subheader class="section_identifier">Trending today</v-subheader>
     <v-row justify="center" class="ma-1 pt-1">
       <Card v-for="(item, i) in today.results" :key="i" :items="item" />
     </v-row>
@@ -31,7 +31,7 @@ import Card from '../../../components/Card'
 import { fetchTrending } from '../../../tmdb/tmdb'
 export default {
   components: {
-    Card,
+    Card
   },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
     } catch {
       error({ message: 'Data cannot be accessed!' })
     }
-  },
+  }
 }
 </script>
 

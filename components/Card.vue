@@ -1,13 +1,17 @@
 <template>
   <div>
-    <v-card class="ma-2 trending_card" @click.stop="dialogInfo = true">
+    <v-card
+      :width="responsiveIMGWidth"
+      class="ma-2 trending_card"
+      @click.stop="dialogInfo = true"
+    >
       <v-img
         class="item_poster"
-        width="160"
+        :width="responsiveIMGWidth"
         :src="
           items.poster_path != null
             ? imgURL + this.items.poster_path
-            : 'https://via.placeholder.com/150x250/4527a0/FFFFF?text=NUXTFLIX'
+            : 'https://via.placeholder.com/150x225/4527a0/FFFFF?text=NUXTFLIX'
         "
       >
         <v-progress-circular
@@ -24,7 +28,13 @@
       <v-card-subtitle class="show_title white--text">{{
         items.title ? items.title : items.name
       }}</v-card-subtitle>
-      <p class="white--text release">{{items.release_date ? items.release_date : items.first_air_date | formatYear}}</p>
+      <p class="white--text release">
+        {{
+          items.release_date
+            ? items.release_date
+            : items.first_air_date | formatYear
+        }}
+      </p>
     </v-card>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
   </div>
@@ -34,33 +44,46 @@
 import Dialog from '../components/dialog/Dialog'
 export default {
   components: {
-    Dialog,
+    Dialog
   },
   data() {
     return {
       imgURL: 'https://image.tmdb.org/t/p/w342',
       dialogInfo: false,
-      overlay: false,
+      overlay: false
     }
   },
   props: {
     items: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     percentage() {
       return Math.round((this.items.vote_average / 10) * 100)
     },
-  },
+    responsiveIMGWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 140
+        case 'sm':
+          return 145
+        case 'md':
+          return 145
+        case 'lg':
+          return 150
+        case 'xl':
+          return 150
+      }
+    }
+  }
 }
 </script>
 
 <style>
 .trending_card {
   background: #4527a0 !important;
-  width: 160px;
   height: 320px;
 }
 
@@ -85,8 +108,8 @@ export default {
   text-overflow: ellipsis;
 }
 
-.release{
-  font-size:20px;
+.release {
+  font-size: 20px;
   text-align: center;
 }
 </style>

@@ -1,13 +1,41 @@
 <template>
   <v-container fluid>
     <Featured :items="featured" />
-    <Slidergroups :items="actionadventure" :url="exploreURL('tv','Action & Adventure',10759)" :title="sliderTitle('Action & Adventure')"/>
-    <Slidergroups :items="trending" :url="trendingTVURL('trending')" :title="sliderTitle('Trending')"/>
-    <Slidergroups :items="comedy" :url="exploreURL('tv','Comedy',35)" :title="sliderTitle('Comedy')"/>
-    <Slidergroups :items="documentary" :url="exploreURL('tv','Documentary',99)" :title="sliderTitle('Documentary')"/>
-    <Slidergroups :items="scififantasy" :url="exploreURL('tv','Scifi & Fantasy',10765)" :title="sliderTitle('Scifi & Fantasy')"/>
-    <Slidergroups :items="drama" :url="exploreURL('tv','Drama',18)" :title="sliderTitle('Drama')"/>
-    <Slidergroups :items="kids" :url="exploreURL('tv','Kids',10762)" :title="sliderTitle('Kids')"/>
+    <Slidergroups
+      :items="actionadventure"
+      :url="exploreURL('tv', 'Action & Adventure', 10759)"
+      :title="sliderTitle('Action & Adventure')"
+    />
+    <Slidergroups
+      :items="trending"
+      :url="trendingTVURL('trending')"
+      :title="sliderTitle('Trending')"
+    />
+    <Slidergroups
+      :items="comedy"
+      :url="exploreURL('tv', 'Comedy', 35)"
+      :title="sliderTitle('Comedy')"
+    />
+    <Slidergroups
+      :items="documentary"
+      :url="exploreURL('tv', 'Documentary', 99)"
+      :title="sliderTitle('Documentary')"
+    />
+    <Slidergroups
+      :items="scififantasy"
+      :url="exploreURL('tv', 'Scifi & Fantasy', 10765)"
+      :title="sliderTitle('Scifi & Fantasy')"
+    />
+    <Slidergroups
+      :items="drama"
+      :url="exploreURL('tv', 'Drama', 18)"
+      :title="sliderTitle('Drama')"
+    />
+    <Slidergroups
+      :items="kids"
+      :url="exploreURL('tv', 'Kids', 10762)"
+      :title="sliderTitle('Kids')"
+    />
   </v-container>
 </template>
 
@@ -18,16 +46,19 @@ import Featured from '../../components/Featured'
 export default {
   components: {
     Slidergroups,
-    Featured,
+    Featured
   },
-  methods:{
-    exploreURL: function(media,genre,id){
-      return {name:'discover-explore-name-id', params:{explore:media, name:genre, id:id}}
+  methods: {
+    exploreURL: function(media, genre, id) {
+      return {
+        name: 'discover-explore-name-id',
+        params: { explore: media, name: genre, id: id }
+      }
     },
-    trendingTVURL: function(type){
-      return {name: 'discover-media-trending', params:{media:type}}
+    trendingTVURL: function(type) {
+      return { name: 'discover-media-trending', params: { media: type } }
     },
-    sliderTitle:function(title){
+    sliderTitle: function(title) {
       return title
     }
   },
@@ -39,7 +70,7 @@ export default {
       const kids = await fetchDiscover('tv', '10762')
       const scififantasy = await fetchDiscover('tv', '10765')
       const drama = await fetchDiscover('tv', '18')
-      const trending = await fetchTrending('tv','week')
+      const trending = await fetchTrending('tv', 'week')
 
       const featuredShow = [
         ...actionadventure.results,
@@ -53,12 +84,24 @@ export default {
         featuredShow[Math.floor(Math.random() * featuredShow.length)]
       const featured = await fetchTV(randomShow.id)
 
-      actionadventure.results.forEach(function (e) {e.media_type = "tv"})
-      comedy.results.forEach(function (e) {e.media_type = "tv"})
-      documentary.results.forEach(function (e) {e.media_type = "tv"})
-      drama.results.forEach(function (e) {e.media_type = "tv"})
-      scififantasy.results.forEach(function (e) {e.media_type = "tv"})
-      kids.results.forEach(function (e) {e.media_type = "tv"})
+      actionadventure.results.forEach(function(e) {
+        e.media_type = 'tv'
+      })
+      comedy.results.forEach(function(e) {
+        e.media_type = 'tv'
+      })
+      documentary.results.forEach(function(e) {
+        e.media_type = 'tv'
+      })
+      drama.results.forEach(function(e) {
+        e.media_type = 'tv'
+      })
+      scififantasy.results.forEach(function(e) {
+        e.media_type = 'tv'
+      })
+      kids.results.forEach(function(e) {
+        e.media_type = 'tv'
+      })
 
       return {
         actionadventure,
@@ -68,12 +111,12 @@ export default {
         scififantasy,
         kids,
         trending,
-        featured,
+        featured
       }
     } catch {
       error({ message: 'Data cannot be accessed!' })
     }
-  },
+  }
 }
 </script>
 
