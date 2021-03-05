@@ -2,8 +2,11 @@
 An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 
 # Current Appearance
-![image](https://i.ibb.co/vq3h9bL/home-page.png)
-![image](https://i.ibb.co/cF0CR13/dialog.png)
+![image](https://i.ibb.co/YDMxq3f/mainpage.png)
+![image](https://i.ibb.co/M5Yf0Pz/dynamiccollectionpage.png)
+![image](https://i.ibb.co/w0cZKRH/dialogshow.png)
+
+
 
 ### ToDo
 - [x] Home Page
@@ -11,11 +14,11 @@ An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 - [x] Featured component
 - [x] Dialog Component
 - [x] Sliders
+- [x] Dynamic Pages
 - [ ] Lazy Load Image
-- [ ] Use store to insert media_type
+- [ ] Search/Autocomplete
 - [ ] Component and Page for Selected Genres
 - [ ] Include trailers
-- [ ] Complete Animated Page
 
 
 ## Build Setup
