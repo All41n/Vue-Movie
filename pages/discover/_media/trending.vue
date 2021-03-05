@@ -16,11 +16,11 @@
       </v-subheader>
     </div>
     <v-subeader class="section_identifier">Trending this week</v-subeader>
-    <v-row justify="space-between" class="pt-1">
+    <v-row justify="center" class="ma-0 pa-0 pt-1">
       <Card v-for="(item, i) in week.results" :key="i" :items="item" />
     </v-row>
     <v-subeader class="section_identifier">Trending today</v-subeader>
-    <v-row justify="space-between" class="pt-1">
+    <v-row justify="center" class="ma-1 pt-1">
       <Card v-for="(item, i) in today.results" :key="i" :items="item" />
     </v-row>
   </v-container>

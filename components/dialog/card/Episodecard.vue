@@ -24,7 +24,7 @@
             {{ item.overview | truncate(150) }}
           </v-card-text>
           <v-card-text class="air_date">
-            {{ item.air_date | formatYear }}
+            {{ item.air_date | formatAirDate }}
           </v-card-text>
         </v-card>
       </v-slide-item>
@@ -42,7 +42,7 @@ export default {
   },
   props: {
     items: {
-      type: Array,
+      type: Object,
       required: true
     }
   }

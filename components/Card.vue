@@ -3,6 +3,7 @@
     <v-card class="ma-2 trending_card" @click.stop="dialogInfo = true">
       <v-img
         class="item_poster"
+        width="160"
         :src="
           items.poster_path != null
             ? imgURL + this.items.poster_path
@@ -10,6 +11,7 @@
         "
       >
         <v-progress-circular
+          :rotate="270"
           :size="50"
           :value="percentage"
           color="amber accent-4"
@@ -22,6 +24,7 @@
       <v-card-subtitle class="show_title white--text">{{
         items.title ? items.title : items.name
       }}</v-card-subtitle>
+      <p class="white--text release">{{items.release_date ? items.release_date : items.first_air_date | formatYear}}</p>
     </v-card>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
   </div>
@@ -31,39 +34,35 @@
 import Dialog from '../components/dialog/Dialog'
 export default {
   components: {
-    Dialog
+    Dialog,
   },
   data() {
     return {
       imgURL: 'https://image.tmdb.org/t/p/w342',
       dialogInfo: false,
-      overlay: false
+      overlay: false,
     }
   },
   props: {
     items: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     percentage() {
       return Math.round((this.items.vote_average / 10) * 100)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style>
 .trending_card {
   background: #4527a0 !important;
-  width: 180px;
+  width: 160px;
   height: 320px;
 }
-
-/* .percent_sign {
-  color: white !important;
-} */
 
 #movie_title {
   font-size: 15px;
@@ -74,10 +73,6 @@ export default {
 .v-slide-group__prev {
   min-width: 60px !important;
 }
-
-/* .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-  background: none !important;
-}*/
 
 .v-btn--contained {
   box-shadow: none !important;
@@ -90,7 +85,8 @@ export default {
   text-overflow: ellipsis;
 }
 
-/* .v-btn:not(.v-btn--round).v-size--large {
-  padding: 0px;
-}  */
+.release{
+  font-size:20px;
+  text-align: center;
+}
 </style>

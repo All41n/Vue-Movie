@@ -4,7 +4,13 @@ import moment from 'moment'
 Vue.filter('formatYear', function(date) {
   if (!date) return ''
   // return date.slice(0, 4)
-  return moment(String(date)).format('DD MMMM YYYY')
+  return moment(String(date)).format('YYYY')
+})
+
+Vue.filter('formatAirDate', function(air_date) {
+  if (!air_date) return ''
+  // return date.slice(0, 4)
+  return moment(String(air_date)).format('DD MMMM YYYY')
 })
 
 Vue.filter('formatDOB', function(dob) {

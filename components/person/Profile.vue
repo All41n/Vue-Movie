@@ -10,6 +10,7 @@
                 :href="`https://image.tmdb.org/t/p/original` + pic.file_path"
                 class="ma-3"
                 width="200"
+                target="_blank"
               >
                 <v-img
                   width="200"
@@ -40,15 +41,15 @@ export default {
   data() {
     return {
       profile: 'https://image.tmdb.org/t/p/w400',
-      overlay: false
+      overlay: false,
     }
   },
   props: {
     pics: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 

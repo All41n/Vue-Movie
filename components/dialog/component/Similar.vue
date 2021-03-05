@@ -4,12 +4,18 @@
       <nuxt-link
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id }
+          params: { media: this.media, name: this.title, id: this.id },
         }"
         class="nuxt_link"
       >
         <div class="d-flex">
-          <h3 class="nuxt_heading">Similar shows as {{ this.title }}</h3>
+          <h3 class="nuxt_heading hidden-md-and-down">
+            Similar shows as {{ this.title }}
+          </h3>
+          <h3 class="hidden_nuxt_link hidden-lg-and-up">
+            Simimlar shows as {{ this.title }}
+            <span class="explore_all_text">Explore All<v-icon class="small_screen_icon" size="25">mdi-chevron-right</v-icon></span>
+          </h3>
         </div>
       </nuxt-link>
     </div>
@@ -27,7 +33,6 @@
       >
         <v-card>
           <v-img
-            class="align-end"
             height="150"
             :src="
               item.backdrop_path != null
@@ -35,12 +40,21 @@
                 : 'https://via.placeholder.com/1920x1080/4527a0/FFFFF?text=NUXTFLIX'
             "
           >
-            <v-card-text id="item_details" class="item_details white--text">{{
-              item.title ? item.title : item.name
-            }}</v-card-text></v-img
-          >
-
-          <v-rating
+            <v-progress-circular
+              :rotate="270"
+              :size="45"
+              :value="percentage(item.vote_average)"
+              color="yellow darken-2"
+              >{{ percentage(item.vote_average) }}
+              <v-icon color="yellow darken-2" class="percent_sign" size="15"
+                >mdi-percent</v-icon
+              ></v-progress-circular
+            >
+          </v-img>
+          <v-card-text id="item_details" class="item_title black--text">{{
+            item.title ? item.title : item.name
+          }}</v-card-text>
+          <!-- <v-rating
             class="item_details"
             readonly
             small
@@ -48,7 +62,7 @@
             background-color="deep-purple darken-3"
             color="deep-purple darken-3"
             :value="item.vote_average / 2"
-          ></v-rating>
+          ></v-rating> -->
           <v-card-text
             class="item_details"
             v-if="item.release_date != null || item.first_air_date != null"
@@ -104,24 +118,24 @@ export default {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9
+      limit: 9,
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true
+      required: true,
     },
     items: {
-      type: Array,
-      required: true
+      type: Object,
+      required: true,
     },
     id: {
-      required: true
+      required: true,
     },
     media: {
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     expand() {
@@ -131,8 +145,12 @@ export default {
       } else if (this.limit == this.items.results.length) {
         this.limit = 9
       }
-    }
-  }
+    },
+    percentage(vote) {
+      return Math.round((vote / 10) * 100)
+    },
+  },
+  computed: {},
 }
 </script>
 
@@ -157,13 +175,6 @@ export default {
   height: 50px;
 }
 
-/* .expand_btn {
-  width: 100%;
-  border-radius: 0px !important;
-  background-color: rgb(69, 39, 160) !important;
-  /* background-color: rgb(69, 39, 160) !important; */
-/* } */
-
 .null_message {
   text-align: center;
 }
@@ -175,8 +186,7 @@ export default {
 }
 
 .nuxt_heading {
-  color: black;
-  /* margin-left: 5px; */
+  color: #4527a0;
   font-weight: 700;
   font-size: 25px;
 }
@@ -190,18 +200,9 @@ export default {
   transition: transform 0.3s, opacity 0.2s;
 }
 
-/* .nuxt_link .nuxt_heading::before {
-  margin-right: 10px;
-  content: '>';
-  -webkit-transform: translateX(20px);
-  -moz-transform: translateX(20px);
-  transform: translateX(20px);
-} */
-
 .nuxt_link .nuxt_heading::after {
   font-family: 'Material Design Icons';
   font-size: 18px;
-  /* font-weight: 800; */
   margin-left: 10px;
   content: 'Explore All \F0142';
   -webkit-transform: translateX(-20px);
@@ -217,5 +218,28 @@ export default {
   -webkit-transform: translateX(0px);
   -moz-transform: translateX(0px);
   transform: translateX(0px);
+}
+
+.item_title {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.hidden_nuxt_link {
+  font-size: 20px;
+}
+
+.explore_all_text{
+  margin-left: 10px;
+  font-size:15px;
+  color:black;
+}
+
+.small_screen_icon{
+  margin-left: -5px;
+  margin-top:-3px;
+  color:black !important;
 }
 </style>

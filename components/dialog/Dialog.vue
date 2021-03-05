@@ -20,7 +20,7 @@
       <div class="container mx-auto md:flex px-6">
         <v-img
           id="poster"
-          width="250"
+          width="280"
           contain
           class="poster hidden-sm-and-down"
           :src="
@@ -31,9 +31,10 @@
         ></v-img>
       </div>
       <v-row>
-        <v-col class="pt-0">
+        <v-col class="pt-0" cols="12" md="7">
           <span>
             <v-progress-circular
+              :rotate="270"
               :size="50"
               :value="percentage"
               class="percentage_rating"
@@ -47,8 +48,8 @@
           </span>
           <div class="star_amount">
             <p>
-              <v-icon size="30" color="amber darken-4">mdi-star</v-icon
-              >{{ this.items.vote_average }}/10
+              <v-icon size="45" color="amber darken-4">mdi-star</v-icon
+              >({{ this.items.vote_average }}/10)
             </p>
           </div>
           <div class="star_rating">
@@ -145,9 +146,10 @@
       <About
         :title="this.items.title ? this.items.title : this.items.name"
         :casts="credits.cast"
-        :crews="credits.crew"
+        :crews="this.credits.crew"
         :mediatype="this.items.media_type"
         :companies="this.details.production_companies"
+        :createdby="this.details.created_by"
       />
     </v-card>
   </v-dialog>
@@ -161,7 +163,7 @@ export default {
   components: {
     Similar,
     About,
-    Episodes
+    Episodes,
   },
   data() {
     return {
@@ -172,31 +174,31 @@ export default {
       all_genres: null,
       details: [],
       credits: [],
-      similars: []
+      similars: [],
     }
   },
   props: {
     visible: {
       type: Boolean,
-      required: true
+      required: true,
     },
     items: {
       type: [Array, Object],
-      required: true
-    }
+      required: true,
+    },
   },
   async fetch() {
     this.details = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     this.credits = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then(res => res.json())
+    ).then((res) => res.json())
 
     this.similars = await fetch(
       `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
-    ).then(res => res.json())
+    ).then((res) => res.json())
   },
   computed: {
     castsToDisplay() {
@@ -212,12 +214,12 @@ export default {
         if (!value) {
           this.$emit('close')
         }
-      }
+      },
     },
     percentage() {
       return Math.round((this.items.vote_average / 10) * 100)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -225,8 +227,8 @@ export default {
 #title {
   position: relative;
   left: 15px;
-  bottom: 10px;
-  font-size: 22px;
+  bottom: 50px;
+  font-size: 25px;
 }
 
 .item_dialog {
@@ -257,25 +259,28 @@ export default {
 .percentage_rating {
   position: relative;
   top: 10px;
-  left: 20px;
+  left: 10px;
 }
 
 .runtime {
   position: relative;
-  font-size: 15px;
+  /* text-align: center; */
+  font-size: 21px;
   font-weight: 450;
   left: 15px;
+  bottom:40px;
   color: black !important;
 }
 
 .overview {
   position: relative;
-  left: 15px;
+  left: 3px;
+  bottom:40px;
 }
 
 .tagline {
   position: relative;
-  top: 15px;
+  bottom: 50px;
   left: 20px;
   font-variant: initial;
   font-style: italic;
@@ -284,13 +289,13 @@ export default {
 
 .user_score_text {
   position: relative;
-  left: 75px;
+  left: 65px;
   bottom: 37px;
 }
 
 .star_amount {
   position: relative;
-  left: 130px;
-  bottom: 95px;
+  left: 150px;
+  bottom: 100px;
 }
 </style>

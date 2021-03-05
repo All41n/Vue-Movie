@@ -3,7 +3,7 @@
     <v-subheader id="page_identifier" class="page_identifier">
       {{ this.$route.params.type | capitalizeFirst }}
     </v-subheader>
-    <v-row justify="space-between" class="ma-0 pa-0">
+    <v-row justify="center" class="ma-0 pa-0">
       <Card v-for="(item, i) in collections" :key="i" :items="item" />
     </v-row>
     <client-only>

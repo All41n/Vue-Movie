@@ -6,7 +6,7 @@
       <v-chip
         dark
         pill
-        class="ma-1"
+        class="ma-1 no_director"
         color="deep-purple darken-3"
         v-if="this.crews.length == 0"
         >No Director found for {{ this.title }}
@@ -16,8 +16,9 @@
         :key="cr"
         :to="{
           name: 'discover-credits-name-id',
-          params: { name: crew.name, id: crew.id }
+          params: { name: crew.name, id: crew.id },
         }"
+        class="director_found"
       >
         <v-chip
           dark
@@ -30,35 +31,15 @@
         </v-chip>
       </nuxt-link>
     </v-card-subtitle>
-    <v-card-subtitle v-if="this.mediatype == 'tv'">
-      Creator:
-      <v-chip
-        small
-        dark
-        pill
-        class="ma-1"
-        color="deep-purple darken-3"
-        v-if="this.crews.length == 0 || this.crews.length == 1"
-        >No Creator found for {{ this.title }}
-      </v-chip>
+    <v-card-subtitle v-if="this.mediatype == 'tv' && this.createdby.length">
+      Creator
       <nuxt-link
-        v-for="(crew, cr) in this.crews"
+        v-for="(creator, cr) in this.createdby"
         :key="cr"
-        :to="{ name: 'discover-credits-credits', query: { id: crew.id } }"
+        :to="{ name: 'discover-credits-name-id', params: { id: creator.id } }"
       >
-        <v-chip
-          small
-          dark
-          pill
-          class="ma-1"
-          color="deep-purple darken-3"
-          v-if="
-            crew.job == 'Executive Producer'
-              ? crew.job == 'Executive Producer'
-              : crew.job == 'Original Series Design' || crew.job == 'Writer'
-          "
-        >
-          {{ crew.name }}
+        <v-chip small dark pill class="ma-1" color="deep-purple darken-3">
+          {{ creator.name }}
         </v-chip>
       </nuxt-link>
     </v-card-subtitle>
@@ -78,7 +59,7 @@
         :key="ca"
         :to="{
           name: 'discover-credits-name-id',
-          params: { name: cast.name, id: cast.id }
+          params: { name: cast.name, id: cast.id },
         }"
         class="cast_url"
       >
@@ -117,31 +98,35 @@
 export default {
   data() {
     return {
-      logo: 'https://image.tmdb.org/t/p/w185'
+      logo: 'https://image.tmdb.org/t/p/w185',
     }
   },
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     casts: {
       type: Array,
-      required: true
+      required: true,
     },
     crews: {
       type: Array,
-      required: true
+      required: true,
     },
     mediatype: {
       type: String,
-      required: true
+      required: true,
     },
     companies: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+    createdby: {
+      type: Array,
+      required: false,
+    },
+  },
 }
 </script>
 
@@ -152,6 +137,14 @@ export default {
 
 .cast_url {
   /* font-size:10px !important; */
+  text-decoration: none;
+}
+
+.no_director {
+  pointer-events: none !important;
+}
+
+.director_found{
   text-decoration: none;
 }
 </style>

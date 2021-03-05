@@ -13,7 +13,7 @@
       v-on:change="getEpisodes"
     ></v-select>
     <div v-if="episodes">
-      <Episodecard :items="this.episodes" />
+      <Episodecard :items="episodes" />
     </div>
     <!-- <p>{{ this.seasons }}</p> -->
   </div>

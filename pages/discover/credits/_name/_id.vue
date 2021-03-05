@@ -23,6 +23,7 @@
               :href="
                 `https://www.instagram.com/` + person.external_ids.instagram_id
               "
+              target="_blank"
             >
               <v-icon size="30">mdi-instagram</v-icon>
             </v-btn>
@@ -34,6 +35,7 @@
               :href="
                 `https://www.facebook.com/` + person.external_ids.facebook_id
               "
+              target="_blank"
             >
               <v-icon size="30">mdi-facebook</v-icon>
             </v-btn>
@@ -45,6 +47,7 @@
               :href="
                 `https://www.twitter.com/` + person.external_ids.twitter_id
               "
+              target="_blank"
             >
               <v-icon size="30">mdi-twitter</v-icon>
             </v-btn>
@@ -54,6 +57,7 @@
               color="transparent"
               v-if="person.external_ids.imdb_id"
               :href="`https://www.imdb.com/name/` + person.external_ids.imdb_id"
+              target="_blank"
             >
               <v-icon size="30">mdi-web</v-icon>
             </v-btn>
@@ -63,35 +67,42 @@
               color="transparent"
               v-if="person.homepage != null"
               :href="person.homepage"
+              target="_blank"
             >
               <v-icon size="30">mdi-link</v-icon>
             </v-btn>
             <!-- <p>{{ person.external_ids }}</p> -->
-            <h2 class="section_heading">
-              Personal Info
-            </h2>
+            <h2 class="section_heading">Personal Info</h2>
             <div>
-              <h4 class="info_subheading">Known For</h4>
+              <h4 class="info_subheading" v-if="person.known_for_department">
+                Known For
+              </h4>
               <p>{{ person.known_for_department }}</p>
             </div>
             <div>
-              <h4 class="info_subheading">Known Credits</h4>
+              <h4 class="info_subheading" v-if="combined.length">
+                Known Credits
+              </h4>
               <p>{{ combined.length }}</p>
             </div>
             <div>
-              <h4 class="info_subheading">Gender</h4>
+              <h4 class="info_subheading" v-if="person.gender">Gender</h4>
               <p>{{ gender(person.gender) }}</p>
             </div>
             <div>
-              <h4 class="info_subheading">Birthdate</h4>
+              <h4 class="info_subheading" v-if="person.birthday">Birthdate</h4>
               <p>{{ person.birthday | formatDOB }}</p>
             </div>
             <div>
-              <h4 class="info_subheading">Place Of Birth</h4>
+              <h4 class="info_subheading" v-if="person.place_of_birth">
+                Place Of Birth
+              </h4>
               <p>{{ person.place_of_birth }}</p>
             </div>
             <div>
-              <h4 class="info_subheading">Also Known As</h4>
+              <h4 class="info_subheading" v-if="person.also_known_as.length">
+                Also Known As
+              </h4>
               <p v-for="(item, i) in person.also_known_as" :key="i">
                 {{ item }}
               </p>
@@ -101,19 +112,18 @@
         <v-col cols="12" sm="8" md="9" class="text-center">
           <h2 class="person_name">{{ person.name }}</h2>
           <div class="bio pt-3">
-            <h4 class="bio_heading">Biography</h4>
+            <h4 class="bio_heading" v-if="person.biography">Biography</h4>
             <p class="pt-2 biography">{{ person.biography }}</p>
           </div>
           <div class="known_for">
             <Knownfor :items="combined" />
           </div>
-          <div class="profile_pictures">
+          <div class="profile_pictures" v-if="profile_pics.length">
             <Profile :pics="profile_pics" />
           </div>
         </v-col>
       </v-row>
     </template>
-    <p>{{ profile_pics }}</p>
   </v-container>
 </template>
 
@@ -125,12 +135,12 @@ export default {
   data() {
     return {
       profile: 'https://image.tmdb.org/t/p/w400',
-      person_id: this.$route.params.id
+      person_id: this.$route.params.id,
     }
   },
   components: {
     Knownfor,
-    Profile
+    Profile,
   },
   async asyncData({ params, error }) {
     try {
@@ -139,10 +149,10 @@ export default {
       const tv_credits = person.tv_credits.cast
 
       //Insert media type
-      movie_credits.forEach(function(e) {
+      movie_credits.forEach(function (e) {
         e.media_type = 'movie'
       })
-      tv_credits.forEach(function(e) {
+      tv_credits.forEach(function (e) {
         e.media_type = 'tv'
       })
       //storing the edited objects
@@ -151,7 +161,7 @@ export default {
       return {
         person,
         combined,
-        profile_pics
+        profile_pics,
         // movie_credits
       }
     } catch {
@@ -159,14 +169,14 @@ export default {
     }
   },
   methods: {
-    gender: function(gender) {
+    gender: function (gender) {
       if (gender == '1') {
         return 'Female'
       } else if (gender == '2') {
         return 'Male'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
