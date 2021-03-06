@@ -41,26 +41,26 @@
 
 <script>
 import Slidergroups from '../../components/Slidergroups'
-import { fetchTrending, fetchTV, fetchDiscover } from '../../tmdb/tmdb'
+import { fetchTrending, fetchDetails, fetchDiscover } from '../../tmdb/tmdb'
 import Featured from '../../components/Featured'
 export default {
   components: {
     Slidergroups,
-    Featured
+    Featured,
   },
   methods: {
-    exploreURL: function(media, genre, id) {
+    exploreURL: function (media, genre, id) {
       return {
         name: 'discover-explore-name-id',
-        params: { explore: media, name: genre, id: id }
+        params: { explore: media, name: genre, id: id },
       }
     },
-    trendingTVURL: function(type) {
+    trendingTVURL: function (type) {
       return { name: 'discover-media-trending', params: { media: type } }
     },
-    sliderTitle: function(title) {
+    sliderTitle: function (title) {
       return title
-    }
+    },
   },
   async asyncData({ error }) {
     try {
@@ -78,28 +78,28 @@ export default {
         ...documentary.results,
         ...scififantasy.results,
         ...drama.results,
-        ...kids.results
+        ...kids.results,
       ]
       const randomShow =
         featuredShow[Math.floor(Math.random() * featuredShow.length)]
-      const featured = await fetchTV(randomShow.id)
-
-      actionadventure.results.forEach(function(e) {
+      const featured = await fetchDetails('tv',randomShow.id)
+      featured['media_type'] = 'tv'
+      actionadventure.results.forEach(function (e) {
         e.media_type = 'tv'
       })
-      comedy.results.forEach(function(e) {
+      comedy.results.forEach(function (e) {
         e.media_type = 'tv'
       })
-      documentary.results.forEach(function(e) {
+      documentary.results.forEach(function (e) {
         e.media_type = 'tv'
       })
-      drama.results.forEach(function(e) {
+      drama.results.forEach(function (e) {
         e.media_type = 'tv'
       })
-      scififantasy.results.forEach(function(e) {
+      scififantasy.results.forEach(function (e) {
         e.media_type = 'tv'
       })
-      kids.results.forEach(function(e) {
+      kids.results.forEach(function (e) {
         e.media_type = 'tv'
       })
 
@@ -111,12 +111,12 @@ export default {
         scififantasy,
         kids,
         trending,
-        featured
+        featured,
       }
     } catch {
       error({ message: 'Data cannot be accessed!' })
     }
-  }
+  },
 }
 </script>
 

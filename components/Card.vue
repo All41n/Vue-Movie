@@ -7,6 +7,7 @@
     >
       <v-img
         class="item_poster"
+        height="230"
         :width="responsiveIMGWidth"
         :src="
           items.poster_path != null
@@ -43,21 +44,22 @@
 <script>
 import Dialog from '../components/dialog/Dialog'
 export default {
+  name: "Card",
   components: {
-    Dialog
+    Dialog,
   },
   data() {
     return {
       imgURL: 'https://image.tmdb.org/t/p/w342',
       dialogInfo: false,
-      overlay: false
+      overlay: false,
     }
   },
   props: {
     items: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     percentage() {
@@ -76,8 +78,8 @@ export default {
         case 'xl':
           return 150
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

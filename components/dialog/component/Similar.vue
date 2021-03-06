@@ -4,7 +4,7 @@
       <nuxt-link
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id }
+          params: { media: this.media, name: this.title, id: this.id },
         }"
         class="nuxt_link"
       >
@@ -94,17 +94,21 @@
         </h4></v-col
       >
     </v-row>
-    <v-btn
-      v-if="this.items.results.length == limit"
-      nuxt
-      exact
-      :to="{
-        name: 'discover-similar-media-name-id',
-        params: { media: this.media, name: this.title, id: this.id }
-      }"
-    >
-      Explore All
-    </v-btn>
+    <v-row justify="center" align="center">
+      <v-btn
+        v-if="this.items.results.length == limit"
+        nuxt
+        exact
+        :to="{
+          name: 'discover-similar-media-name-id',
+          params: { media: this.media, name: this.title, id: this.id },
+        }"
+      >
+        Explore All
+        <v-icon size="25">mdi-plus</v-icon>
+      </v-btn>
+    </v-row>
+
     <v-btn
       id="expand_btn"
       class="expand_btn"
@@ -124,24 +128,24 @@ export default {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9
+      limit: 9,
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true
+      required: true,
     },
     items: {
-      type: Object,
-      required: true
+      type: [Array,Object],
+      required: true,
     },
     id: {
-      required: true
+      required: true,
     },
     media: {
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     expand() {
@@ -154,9 +158,9 @@ export default {
     },
     percentage(vote) {
       return Math.round((vote / 10) * 100)
-    }
+    },
   },
-  computed: {}
+  computed: {},
 }
 </script>
 

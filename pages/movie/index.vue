@@ -37,7 +37,7 @@
 <script>
 import Slidergroups from '../../components/Slidergroups'
 import Featured from '../../components/Featured'
-import { fetchMovie, fetchDiscover, fetchTrending } from '../../tmdb/tmdb'
+import { fetchDetails, fetchDiscover, fetchTrending } from '../../tmdb/tmdb'
 
 export default {
   components: {
@@ -72,19 +72,19 @@ export default {
       const trending = await fetchTrending('movie','week')
 
       action.results.forEach(function (e) {
-        e.media_type = 'movie'
+        e.media_type = "movie"
       })
       fantasy.results.forEach(function (e) {
-        e.media_type = 'movie'
+        e.media_type = "movie"
       })
       animated.results.forEach(function (e) {
-        e.media_type = 'movie'
+        e.media_type =  "movie"
       })
       horror.results.forEach(function (e) {
-        e.media_type = 'movie'
+        e.media_type =  "movie"
       })
       scifi.results.forEach(function (e) {
-        e.media_type = 'movie'
+        e.media_type =  "movie"
       })
 
       //get single movie for featured
@@ -97,8 +97,8 @@ export default {
 
       const randomfy =
         mixedGenres[Math.floor(Math.random() * mixedGenres.length)]
-      const getFeatured = await fetchMovie(randomfy.id)
-
+      const getFeatured = await fetchDetails('movie',randomfy.id)
+      getFeatured['media_type'] = 'movie'
       return {
         action,
         fantasy,

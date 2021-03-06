@@ -43,17 +43,8 @@
         </v-chip>
       </nuxt-link>
     </v-card-subtitle>
-    <v-card-subtitle>
+    <v-card-subtitle v-if="this.casts.length != 0">
       Cast:
-      <v-chip
-        dark
-        pill
-        class="ma-1"
-        color="deep-purple darken-3"
-        v-if="this.casts.length == 0"
-      >
-        No Cast found for {{ this.title }}</v-chip
-      >
       <nuxt-link
         v-for="(cast, ca) in this.casts.slice(0, 12)"
         :key="ca"
@@ -108,11 +99,11 @@ export default {
     },
     casts: {
       type: Array,
-      required: true,
+      required: false,
     },
     crews: {
       type: Array,
-      required: true,
+      required: false,
     },
     mediatype: {
       type: String,
@@ -120,7 +111,7 @@ export default {
     },
     companies: {
       type: Array,
-      required: true,
+      required: false,
     },
     createdby: {
       type: Array,
@@ -144,7 +135,7 @@ export default {
   pointer-events: none !important;
 }
 
-.director_found{
+.director_found {
   text-decoration: none;
 }
 </style>

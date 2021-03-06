@@ -3,7 +3,7 @@
     <v-subheader id="page_heading" class="page_heading pt-5"
       >Similar shows as {{ this.title }}</v-subheader
     >
-    <v-row justify="space-between" class="ma-0 pa-0 pt-3">
+    <v-row justify="center" class="ma-0 pa-0 pt-3">
       <Card v-for="(item, i) in similar" :key="i" :items="item" />
     </v-row>
     <client-only>

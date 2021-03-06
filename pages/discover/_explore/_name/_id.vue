@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <h3 id="discover_title" class="discover_title">{{ this.title }}</h3>
-    <v-row justify="space-between" class="ma-0 pa-0">
+    <v-row justify="center" class="ma-0 pa-0">
       <Card v-for="(item, i) in discover" :key="i" :items="item" />
     </v-row>
     <client-only>

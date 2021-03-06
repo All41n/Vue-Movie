@@ -11,30 +11,12 @@ export function fetchCollections(media, header, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${media}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`,
+        `https://api.themoviedb.org/3/${media}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=us`,
         {
           params: {
-            page
+            page,
           }
         }
-      )
-      .then(response => {
-        resolve(response.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-/**
- * function to fetch TV Shows
- */
-export function fetchTVShows(header) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
       )
       .then(response => {
         resolve(response.data)
@@ -66,29 +48,11 @@ export function fetchTrending(header, duration) {
 /**
  * function to get single
  */
-export function fetchMovie(header) {
+export function fetchDetails(type, header) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&append_to_response=images,videos`
-      )
-      .then(response => {
-        resolve(response.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-/**
- * fetch single tv show
- */
-export function fetchTV(header) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+        `https://api.themoviedb.org/3/${type}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&append_to_response=images,videos`
       )
       .then(response => {
         resolve(response.data)
@@ -205,3 +169,58 @@ export function fetchEpisodes(id, season) {
       })
   })
 }
+
+/** 
+ * fetchCredits
+*/
+export function fetchCredits(media, id) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/${media}/${id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+      )
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+/**
+ * fetchCollections
+ */
+export function fetchBelongto(id) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/collection/${id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+      )
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+/**
+ * fetchVideos
+ */
+export function fetchVideos(id) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+      )
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+

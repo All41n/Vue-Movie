@@ -26,7 +26,7 @@
           :src="
             this.items.poster_path != null
               ? poster + this.items.poster_path
-              : 'https://via.placeholder.com/250x450/4527a0/FFFFF?text=NUXTFLIX'
+              : 'https://via.placeholder.com/280x400/4527a0/FFFFF?text=NUXTFLIX'
           "
         ></v-img>
       </div>
@@ -48,22 +48,12 @@
           </span>
           <div class="star_amount">
             <p>
-              <v-icon size="45" color="amber darken-4">mdi-star</v-icon
-              >({{ this.items.vote_average }}/10)
+              <v-icon size="45" color="amber darken-4">mdi-star</v-icon>({{
+                this.items.vote_average
+              }}/10)
             </p>
           </div>
-          <div class="star_rating">
-            <!-- <v-rating
-              id="rating"
-              class="star_rating"
-              :value="this.items.vote_average / 2"
-              background-color="purple lighten-3"
-              color="purple"
-              readonly
-              half-increments
-            >
-            </v-rating> -->
-          </div>
+          <div class="star_rating"></div>
           <p class="tagline" v-if="!details.tagline"></p>
           <p class="tagline" v-else-if="details.tagline">
             "{{ details.tagline }}"
@@ -143,6 +133,8 @@
         :id="this.items.id"
         :media="this.items.media_type"
       />
+      <Belongto v-if="this.details.belongs_to_collection" :collections="this.details.belongs_to_collection" />
+      <Videos :showID="this.items.id"/>
       <About
         :title="this.items.title ? this.items.title : this.items.name"
         :casts="credits.cast"
@@ -159,19 +151,21 @@
 import Similar from '../../components/dialog/component/Similar'
 import About from '../../components/dialog/component/About'
 import Episodes from '../../components/dialog/component/Episodes'
+import Belongto from '../../components/dialog/component/Belongto'
+import Videos from '../../components/dialog/component/Videos'
+import { fetchDetails, fetchCredits, fetchSimilar } from '../../tmdb/tmdb'
 export default {
   components: {
     Similar,
     About,
     Episodes,
+    Belongto,
+    Videos
   },
   data() {
     return {
       backdrop: 'https://image.tmdb.org/t/p/w780',
       poster: 'https://image.tmdb.org/t/p/w342',
-      genres: null,
-      loading: false,
-      all_genres: null,
       details: [],
       credits: [],
       similars: [],
@@ -187,18 +181,27 @@ export default {
       required: true,
     },
   },
-  async fetch() {
-    this.details = await fetch(
-      `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then((res) => res.json())
-
-    this.credits = await fetch(
-      `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-    ).then((res) => res.json())
-
-    this.similars = await fetch(
-      `https://api.themoviedb.org/3/${this.items.media_type}/${this.items.id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&page=1`
-    ).then((res) => res.json())
+  methods: {
+    getDetails() {
+      fetchDetails(this.items.media_type, this.items.id).then((items) => {
+        this.details = items
+      })
+    },
+    getCredits() {
+      fetchCredits(this.items.media_type, this.items.id).then((items) => {
+        this.credits = items
+      })
+    },
+    getSimilar() {
+      fetchSimilar(this.items.media_type, this.items.id).then((items) => {
+        this.similars = items
+      })
+    },
+  },
+  created() {
+    this.getDetails()
+    this.getCredits()
+    this.getSimilar()
   },
   computed: {
     castsToDisplay() {
@@ -268,14 +271,14 @@ export default {
   font-size: 21px;
   font-weight: 450;
   left: 15px;
-  bottom:40px;
+  bottom: 40px;
   color: black !important;
 }
 
 .overview {
   position: relative;
   left: 3px;
-  bottom:40px;
+  bottom: 40px;
 }
 
 .tagline {
