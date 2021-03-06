@@ -18,7 +18,7 @@ An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 - [ ] Lazy Load Image
 - [ ] Search/Autocomplete
 - [ ] Component and Page for Selected Genres
-- [ ] Include trailers
+- [x] Include trailers
 
 
 ## Build Setup
