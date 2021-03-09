@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" max-width="900px">
     <v-card id="dialog" class="item_dialog">
-      <v-btn fixed id="close" icon dark flat @click.stop="show = false">
+      <v-btn fixed id="close" icon dark text @click.stop="show = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-img
@@ -133,8 +133,11 @@
         :id="this.items.id"
         :media="this.items.media_type"
       />
-      <Belongto v-if="this.details.belongs_to_collection" :collections="this.details.belongs_to_collection" />
-      <Videos :showID="this.items.id"/>
+      <Belongto
+        v-if="this.details.belongs_to_collection"
+        :collections="this.details.belongs_to_collection"
+      />
+      <Videos :showID="this.items.id" />
       <About
         :title="this.items.title ? this.items.title : this.items.name"
         :casts="credits.cast"
@@ -168,35 +171,35 @@ export default {
       poster: 'https://image.tmdb.org/t/p/w342',
       details: [],
       credits: [],
-      similars: [],
+      similars: []
     }
   },
   props: {
     visible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     items: {
       type: [Array, Object],
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     getDetails() {
-      fetchDetails(this.items.media_type, this.items.id).then((items) => {
+      fetchDetails(this.items.media_type, this.items.id).then(items => {
         this.details = items
       })
     },
     getCredits() {
-      fetchCredits(this.items.media_type, this.items.id).then((items) => {
+      fetchCredits(this.items.media_type, this.items.id).then(items => {
         this.credits = items
       })
     },
     getSimilar() {
-      fetchSimilar(this.items.media_type, this.items.id).then((items) => {
+      fetchSimilar(this.items.media_type, this.items.id).then(items => {
         this.similars = items
       })
-    },
+    }
   },
   created() {
     this.getDetails()
@@ -217,12 +220,12 @@ export default {
         if (!value) {
           this.$emit('close')
         }
-      },
+      }
     },
     percentage() {
       return Math.round((this.items.vote_average / 10) * 100)
-    },
-  },
+    }
+  }
 }
 </script>
 

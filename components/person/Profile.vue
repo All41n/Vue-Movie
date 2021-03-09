@@ -13,14 +13,16 @@
                   width="200"
                   target="_blank"
                 >
-                  <v-img
+                  <img
                     width="200"
-                    :src="
+                    :data-src="
                       pic.file_path != null
                         ? profile + pic.file_path
                         : require('../../assets/default_profile.jpg')
                     "
-                  ></v-img>
+                    :src="require('../../assets/default_profile.jpg')"
+                    v-lazy-load
+                  />
                   <v-fade-transition>
                     <v-overlay v-if="hover" absolute color="#4527a0">
                       <v-card-subtitle class="view_overlay white--text"
@@ -74,15 +76,15 @@ export default {
     return {
       profile: 'https://image.tmdb.org/t/p/w400',
       overlay: false,
-      max: 12,
+      max: 12
     }
   },
   props: {
     pics: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 }
 </script>
 

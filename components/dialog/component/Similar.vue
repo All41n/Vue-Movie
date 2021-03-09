@@ -4,7 +4,7 @@
       <nuxt-link
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id },
+          params: { media: this.media, name: this.title, id: this.id }
         }"
         class="nuxt_link"
       >
@@ -35,18 +35,25 @@
         v-for="(item, i) in this.items.results.slice(0, limit)"
         :key="i"
       >
-        <v-card>
-          <v-img
+        <v-card :width="responsiveWidth">
+          <img
+            :width="responsiveWidth"
             height="150"
-            :src="
+            :data-src="
               item.backdrop_path != null
                 ? IMG + item.backdrop_path
                 : 'https://via.placeholder.com/1920x1080/4527a0/FFFFF?text=NUXTFLIX'
             "
-          >
+            src="https://via.placeholder.com/1920x1080/4527a0/FFFFF?text=NUXTFLIX"
+            :alt="item.title ? item.title : item.name"
+            v-lazy-load
+          />
+
+          <!-- </v-img> -->
+          <v-row justify="center">
             <v-progress-circular
               :rotate="270"
-              :size="45"
+              :size="38"
               :value="percentage(item.vote_average)"
               color="yellow darken-2"
               >{{ percentage(item.vote_average) }}
@@ -54,7 +61,7 @@
                 >mdi-percent</v-icon
               ></v-progress-circular
             >
-          </v-img>
+          </v-row>
           <v-card-text id="item_details" class="item_title black--text">{{
             item.title ? item.title : item.name
           }}</v-card-text>
@@ -101,7 +108,7 @@
         exact
         :to="{
           name: 'discover-similar-media-name-id',
-          params: { media: this.media, name: this.title, id: this.id },
+          params: { media: this.media, name: this.title, id: this.id }
         }"
       >
         Explore All
@@ -128,24 +135,24 @@ export default {
     return {
       IMG: 'https://image.tmdb.org/t/p/w780',
       showMore: false,
-      limit: 9,
+      limit: 9
     }
   },
   components: { Dialog },
   props: {
     title: {
-      required: true,
+      required: true
     },
     items: {
-      type: [Array,Object],
-      required: true,
+      type: [Array, Object],
+      required: true
     },
     id: {
-      required: true,
+      required: true
     },
     media: {
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     expand() {
@@ -158,9 +165,24 @@ export default {
     },
     percentage(vote) {
       return Math.round((vote / 10) * 100)
-    },
+    }
   },
-  computed: {},
+  computed: {
+    responsiveWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 248
+        case 'sm':
+          return 215.5
+        case 'md':
+          return 275.5
+        case 'lg':
+          return 270.3
+        case 'xl':
+          return 276
+      }
+    }
+  }
 }
 </script>
 

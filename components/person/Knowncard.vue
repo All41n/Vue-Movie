@@ -8,15 +8,19 @@
         @click.stop="dialogInfo = true"
         tile
       >
-        <v-img
+        <img
           class="known_for_poster"
           width="140"
-          :src="
+          :data-src="
             item.poster_path != null
               ? poster + item.poster_path
               : 'https://via.placeholder.com/160x240.png/4527a0/FFFFF?text=NUXTFLIX'
           "
-        ></v-img>
+          src="
+            https://via.placeholder.com/160x240.png/4527a0/FFFFF?text=NUXTFLIX
+          "
+          v-lazy-load
+        />
         <v-card-subtitle class="known_for_titles white--text">{{
           item.title ? item.title : item.name
         }}</v-card-subtitle>

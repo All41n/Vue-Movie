@@ -4,7 +4,7 @@
       <template>
         <v-card
           flat
-          class="ma-2"
+          class="ma-2 video_card"
           color="rgb(230,230,230)"
           :width="responsiveThumbnail"
           @click.stop="videoDialog = true"
@@ -19,7 +19,7 @@
         </v-card>
       </template>
     </v-hover>
-    <Fullscreen
+    <Trailer
       :visible="videoDialog"
       :video="this.video.key"
       :title="video.name"
@@ -29,22 +29,22 @@
 </template>
 
 <script>
-import Fullscreen from '../fullscreen/fullscreendialog'
+import Trailer from '../trailer/Trailer'
 export default {
   data() {
     return {
       videosArr: [],
-      videoDialog: false,
+      videoDialog: false
     }
   },
   components: {
-    Fullscreen,
+    Trailer
   },
   props: {
     video: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     thumbnail() {
@@ -59,18 +59,25 @@ export default {
         case 'md':
           return 140
         case 'lg':
-          return 150
+          return 180
         case 'xl':
-          return 150
+          return 180
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style>
 .video_name {
-  font-size: 17px;
-  color: black !important;
+  font-size: 1rem;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.video_card {
+  height: 170px;
 }
 </style>

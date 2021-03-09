@@ -12,7 +12,7 @@
       outlined
       v-on:change="getEpisodes"
     ></v-select>
-    <div v-if="episodes" class="pt-12">
+    <div v-if="episodes" class="pt-2">
       <Episodecard :items="episodes" />
     </div>
     <!-- <p>{{ this.seasons }}</p> -->

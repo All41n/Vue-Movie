@@ -7,14 +7,19 @@
       ></v-app-bar-nav-icon>
       <v-toolbar-title v-text="title" id="app_title" />
       <v-spacer></v-spacer>
-      <v-text-field
-        flat
-        append-icon="mdi-magnify"
-        label="Search"
-        outlined
-        dense
-        class="hidden-md-and-down"
-      ></v-text-field>
+      <v-form ref="form" @submit.prevent>
+        <v-text-field
+          flat
+          dense
+          outlined
+          clearable
+          v-model="search"
+          placholder="Search"
+          append-icon="mdi-magnify"
+          class="hidden-md-and-down"
+        ></v-text-field>
+      </v-form>
+
       <v-spacer></v-spacer>
       <v-btn
         id="router-item"
@@ -40,7 +45,7 @@
             <v-list-item-content>
               <nuxt-link
                 :to="{
-                  name: 'movie',
+                  name: 'movie'
                 }"
                 class="nuxt_url"
               >
@@ -52,7 +57,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'popular' },
+                  params: { media: 'movie', type: 'popular' }
                 }"
                 class="nuxt_url"
               >
@@ -62,7 +67,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'upcoming' },
+                  params: { media: 'movie', type: 'upcoming' }
                 }"
                 class="nuxt_url"
               >
@@ -72,7 +77,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'top_rated' },
+                  params: { media: 'movie', type: 'top_rated' }
                 }"
                 class="nuxt_url"
               >
@@ -82,7 +87,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'now_playing' },
+                  params: { media: 'movie', type: 'now_playing' }
                 }"
                 class="nuxt_url"
               >
@@ -109,7 +114,7 @@
             <v-list-item-content>
               <nuxt-link
                 :to="{
-                  name: 'tv',
+                  name: 'tv'
                 }"
                 class="nuxt_url"
               >
@@ -121,7 +126,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'popular' },
+                  params: { media: 'tv', type: 'popular' }
                 }"
                 class="nuxt_url"
               >
@@ -131,7 +136,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'top_rated' },
+                  params: { media: 'tv', type: 'top_rated' }
                 }"
                 class="nuxt_url"
               >
@@ -141,7 +146,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'on_the_air' },
+                  params: { media: 'tv', type: 'on_the_air' }
                 }"
                 class="nuxt_url"
               >
@@ -151,7 +156,7 @@
               <nuxt-link
                 :to="{
                   name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'airing_today' },
+                  params: { media: 'tv', type: 'airing_today' }
                 }"
                 class="nuxt_url"
               >
@@ -204,7 +209,7 @@
                 <v-list-item-content class="text-center">
                   <nuxt-link
                     :to="{
-                      name: 'movie',
+                      name: 'movie'
                     }"
                     class="subnav"
                   >
@@ -216,7 +221,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'popular' },
+                      params: { media: 'movie', type: 'popular' }
                     }"
                     class="subnav"
                   >
@@ -230,7 +235,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-media-trending',
-                      params: { media: 'movie' },
+                      params: { media: 'movie' }
                     }"
                     class="subnav"
                   >
@@ -244,7 +249,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'upcoming' },
+                      params: { media: 'movie', type: 'upcoming' }
                     }"
                     class="subnav"
                   >
@@ -258,7 +263,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'top_rated' },
+                      params: { media: 'movie', type: 'top_rated' }
                     }"
                     class="subnav"
                   >
@@ -272,7 +277,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'now_playing' },
+                      params: { media: 'movie', type: 'now_playing' }
                     }"
                     class="subnav"
                   >
@@ -310,7 +315,7 @@
                 <v-list-item-content class="text-center">
                   <nuxt-link
                     :to="{
-                      name: 'tv',
+                      name: 'tv'
                     }"
                     class="subnav"
                   >
@@ -322,7 +327,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'popular' },
+                      params: { media: 'tv', type: 'popular' }
                     }"
                     class="subnav"
                   >
@@ -336,7 +341,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-media-trending',
-                      params: { media: 'tv' },
+                      params: { media: 'tv' }
                     }"
                     class="subnav"
                   >
@@ -350,7 +355,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'top_rated' },
+                      params: { media: 'tv', type: 'top_rated' }
                     }"
                     class="subnav"
                   >
@@ -364,7 +369,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'airing_today' },
+                      params: { media: 'tv', type: 'airing_today' }
                     }"
                     class="subnav"
                   >
@@ -378,7 +383,7 @@
                   <nuxt-link
                     :to="{
                       name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'on_the_air' },
+                      params: { media: 'tv', type: 'on_the_air' }
                     }"
                     class="subnav"
                   >
@@ -410,8 +415,13 @@ export default {
       filmsExpand: false,
       model: 1,
       dialog: false,
+      search: '',
+      searchResults: []
     }
   },
+  methods: {
+    async searchShows() {}
+  }
 }
 </script>
 
