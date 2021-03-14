@@ -28,16 +28,13 @@ import { fetchSearch } from '../../tmdb/tmdb'
 export default {
   data() {
     return {
-      page: 2, // use page 2 instead of page 1 to prevent duplicate displays
-      currentRoute: 'search',
+      page: 2 // use page 2 instead of page 1 to prevent duplicate displays
     }
   },
   components: {
-    Card,
+    Card
   },
-  mounted() {
-    this.$store.commit('setCurrentRoute', this.currentRoute)
-  },
+
   beforeRouteUpdate(to, from, next) {
     next()
     this.search()
@@ -62,7 +59,7 @@ export default {
     },
     infiniteScroll($state) {
       try {
-        fetchSearch(this.$route.query.s, this.page).then((items) => {
+        fetchSearch(this.$route.query.s, this.page).then(items => {
           if (items.results.length) {
             this.page += 1
             this.searchresults.results = this.searchresults.results.concat(
@@ -76,8 +73,8 @@ export default {
       } catch (e) {
         console.log(e)
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

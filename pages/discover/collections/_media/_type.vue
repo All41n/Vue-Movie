@@ -21,12 +21,12 @@ import Card from '../../../../components/Card'
 import { fetchCollections } from '../../../../tmdb/tmdb'
 export default {
   components: {
-    Card,
+    Card
   },
   data() {
     return {
       collections: [],
-      page: 1,
+      page: 2
     }
   },
   methods: {
@@ -35,9 +35,9 @@ export default {
         this.$route.params.media,
         this.$route.params.type,
         this.page
-      ).then((items) => {
+      ).then(items => {
         if (items.results.length) {
-          this.page++
+          this.page += 1
           this.collections.push(...items.results)
           this.mediaType(this.collections, this.$route.params.media)
           $state.loaded()
@@ -46,15 +46,15 @@ export default {
         }
       })
     },
-    mediaType: function (arr, media) {
-      return arr.forEach(function (e) {
+    mediaType: function(arr, media) {
+      return arr.forEach(function(e) {
         e.media_type = media
       })
-    },
+    }
   },
   created() {
     this.getCollections()
-  },
+  }
 }
 </script>
 

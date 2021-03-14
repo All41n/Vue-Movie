@@ -24,18 +24,18 @@ export default {
       media: this.$route.params.explore,
       id: this.$route.params.id,
       discover: [],
-      page: 1,
+      page: 2
     }
   },
   components: {
-    Card,
+    Card
   },
   methods: {
     async fetchMore($state) {
       const loadMore = await fetchDiscover(this.media, this.id, this.page).then(
-        (items) => {
+        items => {
           if (items.results.length) {
-            this.page+=1
+            this.page += 1
             this.discover.push(...items.results)
             this.insertMediaType(this.discover, this.media)
             $state.loaded()
@@ -46,14 +46,14 @@ export default {
       )
     },
     insertMediaType(arr, media) {
-      return arr.forEach(function (e) {
+      return arr.forEach(function(e) {
         e.media_type = media
       })
-    },
+    }
   },
   beforCreate() {
     this.fetchMore()
-  },
+  }
 }
 </script>
 
