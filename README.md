@@ -15,8 +15,8 @@ An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 - [x] Dialog Component
 - [x] Sliders
 - [x] Dynamic Pages
-- [ ] Lazy Load Image
-- [ ] Search/Autocomplete
+- [x] Lazy Load Image
+- [x] Search/Autocomplete
 - [ ] Component and Page for Selected Genres
 - [x] Include trailers
 
