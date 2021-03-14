@@ -21,7 +21,7 @@ import Card from '../../../../../components/Card'
 import { fetchSimilar } from '../../../../../tmdb/tmdb'
 export default {
   components: {
-    Card
+    Card,
   },
   data() {
     return {
@@ -29,7 +29,7 @@ export default {
       page: 1,
       media: this.$route.params.media,
       id: this.$route.params.id,
-      title: this.$route.params.name
+      title: this.$route.params.name,
     }
   },
   methods: {
@@ -38,7 +38,7 @@ export default {
         this.media,
         this.id,
         this.page
-      ).then(items => {
+      ).then((items) => {
         if (items.results.length) {
           this.page++
           this.similar.push(...items.results)
@@ -49,15 +49,15 @@ export default {
         }
       })
     },
-    mediaType: function(arr, media) {
-      return arr.forEach(function(e) {
+    mediaType: function (arr, media) {
+      return arr.forEach(function (e) {
         e.media_type = media
       })
-    }
+    },
   },
   created() {
     this.getSimilar()
-  }
+  },
 }
 </script>
 

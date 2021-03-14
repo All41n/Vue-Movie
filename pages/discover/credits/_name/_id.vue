@@ -122,6 +122,7 @@
             <Profile :pics="profile_pics" />
           </div>
         </v-col>
+        <p>{{this.$router.currentRoute.name}}</p>
       </v-row>
     </template>
   </v-container>

@@ -11,6 +11,7 @@
                   :href="`https://image.tmdb.org/t/p/original` + pic.file_path"
                   class="ma-3"
                   width="200"
+                  height="300"
                   target="_blank"
                 >
                   <img
@@ -44,6 +45,7 @@
                 :href="`https://image.tmdb.org/t/p/original` + pic.file_path"
                 class="ma-3"
                 width="200"
+                height="300"
                 target="_blank"
               >
                 <v-img
@@ -76,15 +78,15 @@ export default {
     return {
       profile: 'https://image.tmdb.org/t/p/w400',
       overlay: false,
-      max: 12
+      max: 12,
     }
   },
   props: {
     pics: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 

@@ -224,3 +224,27 @@ export function fetchVideos(id) {
   })
 }
 
+//https://api.themoviedb.org/3/search/multi?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
+/**
+ * fetchSearch
+ */
+export function fetchSearch(query, page = 1) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/search/multi?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&include_adult=false
+        `, {
+        params: {
+          query,
+          page
+        }
+      }
+      )
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}

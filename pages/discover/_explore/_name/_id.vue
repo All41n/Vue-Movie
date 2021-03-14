@@ -35,7 +35,7 @@ export default {
       const loadMore = await fetchDiscover(this.media, this.id, this.page).then(
         (items) => {
           if (items.results.length) {
-            this.page++
+            this.page+=1
             this.discover.push(...items.results)
             this.insertMediaType(this.discover, this.media)
             $state.loaded()

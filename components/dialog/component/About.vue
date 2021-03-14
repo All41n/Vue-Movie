@@ -59,7 +59,7 @@
         </v-chip>
       </nuxt-link>
     </v-card-subtitle>
-    <v-card-subtitle v-if="this.companies.length">
+    <v-card-subtitle v-if="companies.length">
       Production Companies:
       <!-- <v-img
         v-for="(company, c) in this.companies"

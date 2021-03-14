@@ -43,13 +43,13 @@ export default {
       const popularMovie = await fetchCollections('movie', 'popular')
       const popularSeries = await fetchCollections('tv', 'popular')
       popularMovie.results.forEach(function (e) {
-        e.media_type = "movie"
+        e.media_type = 'movie'
       })
       popularSeries.results.forEach(function (e) {
-        e.media_type = "tv"
+        e.media_type = 'tv'
       })
       //return movies at number n
-      const popular = [...popularMovie.results,...popularSeries.results]
+      const popular = [...popularMovie.results, ...popularSeries.results]
       const returnLimit = []
       const getRandom = (arr, num = 1) => {
         for (let i = 0; i < num; ) {

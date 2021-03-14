@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card
+      v-if="items.media_type == 'movie' || items.media_type == 'tv'"
       :width="responsiveIMGWidth"
       class="ma-2 trending_card"
       @click.stop="dialogInfo = true"
@@ -10,12 +11,12 @@
         height="230"
         :width="responsiveIMGWidth"
         :data-src="
-          items.poster_path != null
+          this.items.poster_path != null
             ? imgURL + this.items.poster_path
             : 'https://via.placeholder.com/150x225/4527a0/FFFFF?text=NUXTFLIX'
         "
         :src="'https://via.placeholder.com/150x225/4527a0/FFFFF?text=NUXTFLIX'"
-        :alt="items.title ? items.title : items.name"
+        :alt="this.items.title ? this.items.title : items.name"
         v-lazy-load
       />
       <v-row justify="center">
@@ -30,17 +31,47 @@
           ></v-progress-circular
         >
       </v-row>
-
-      <!--</v-img> -->
       <v-card-subtitle class="show_title white--text">{{
-        items.title ? items.title : items.name
+        this.items.title ? this.items.title : items.name
       }}</v-card-subtitle>
       <p class="white--text release">
         {{
-          items.release_date
-            ? items.release_date
-            : items.first_air_date | formatYear
+          this.items.release_date
+            ? this.items.release_date
+            : this.items.first_air_date | formatYear
         }}
+      </p>
+    </v-card>
+    <v-card
+      class="mt-2 ma-2 deep-purple darken-3"
+      :width="responsiveIMGWidth"
+      v-if="items.media_type == 'person'"
+      nuxt
+      exact
+      :to="{
+        name: 'discover-credits-name-id',
+        params: { name: items.name, id: items.id },
+      }"
+    >
+      <img
+        :width="responsiveIMGWidth"
+        height="230"
+        :data-src="
+          items.profile_path != null
+            ? profile + items.profile_path
+            : 'https://via.placeholder.com/150x225/4527a0/FFFFF?text=NUXTFLIX'
+        "
+        :src="'https://via.placeholder.com/150x225/4527a0/FFFFF?text=NUXTFLIX'"
+        :alt="items.name"
+        v-lazy-load
+      />
+      <p class="person_name white--text text-center">{{ items.name }}</p>
+      <p class="person_department white--text text-center">
+        {{ items.known_for_department }}
+      </p>
+      <p class="person_rating white--text text-center">
+        <v-icon size="20" color="white">mdi-chart-line-variant</v-icon
+        >{{ roundRating(items.popularity) }}
       </p>
     </v-card>
     <Dialog :visible="dialogInfo" :items="items" @close="dialogInfo = false" />
@@ -52,20 +83,26 @@ import Dialog from '../components/dialog/Dialog'
 export default {
   name: 'Card',
   components: {
-    Dialog
+    Dialog,
   },
   data() {
     return {
       imgURL: 'https://image.tmdb.org/t/p/w342',
+      profile: 'https://image.tmdb.org/t/p/w400',
       dialogInfo: false,
-      overlay: false
     }
   },
   props: {
     items: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
+  },
+  methods: {
+    roundRating(rating) {
+      const r = Math.round(rating * 10) / 100
+      return r
+    },
   },
   computed: {
     percentage() {
@@ -84,8 +121,8 @@ export default {
         case 'xl':
           return 165
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -119,5 +156,17 @@ export default {
 
 .v-progress-circular__info {
   font-size: 0.7rem;
+}
+
+.person_name {
+  font-size: 1rem !important;
+}
+
+.person_department {
+  font-size: 1.1rem !important;
+}
+
+.person_rating {
+  font-size: 1.3rem !important;
 }
 </style>
