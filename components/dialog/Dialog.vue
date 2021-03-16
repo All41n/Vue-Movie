@@ -85,6 +85,16 @@
               dark
               v-for="(genre, g) in details.genres"
               :key="g"
+              nuxt
+              exact
+              :to="{
+                name: 'discover-explore-name-id',
+                params: {
+                  explore: genre.media_type,
+                  name: genre.name,
+                  id: genre.id
+                }
+              }"
               color="purple darken-2"
             >
               {{ genre.name }}
@@ -101,6 +111,12 @@
               v-for="(cast, c) in castsToDisplay"
               :key="c"
               color="indigo darken-3"
+              nuxt
+              exact
+              :to="{
+                name: 'discover-credits-name-id',
+                params: { name: cast.name, id: cast.id }
+              }"
             >
               {{ cast.name }}
             </v-chip>
@@ -163,7 +179,7 @@ export default {
     About,
     Episodes,
     Belongto,
-    Videos,
+    Videos
   },
   data() {
     return {
@@ -171,35 +187,43 @@ export default {
       poster: 'https://image.tmdb.org/t/p/w342',
       details: [],
       credits: [],
-      similars: [],
+      similars: []
     }
   },
   props: {
     visible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     items: {
       type: [Array, Object],
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
-    getDetails() {
-      fetchDetails(this.items.media_type, this.items.id).then((items) => {
+    async getDetails() {
+      await fetchDetails(this.items.media_type, this.items.id).then(items => {
         this.details = items
+        // this.media(this.details.results, this.items.media_type)
+        this.mediatype(this.details.genres, this.items.media_type)
+        // this.details['media_type'] = this.items.media_type
       })
     },
-    getCredits() {
-      fetchCredits(this.items.media_type, this.items.id).then((items) => {
+    async getCredits() {
+      await fetchCredits(this.items.media_type, this.items.id).then(items => {
         this.credits = items
       })
     },
-    getSimilar() {
-      fetchSimilar(this.items.media_type, this.items.id).then((items) => {
+    async getSimilar() {
+      await fetchSimilar(this.items.media_type, this.items.id).then(items => {
         this.similars = items
       })
     },
+    mediatype(arr, type) {
+      return arr.forEach(function(media) {
+        media.media_type = type
+      })
+    }
   },
   created() {
     this.getDetails()
@@ -220,12 +244,12 @@ export default {
         if (!value) {
           this.$emit('close')
         }
-      },
+      }
     },
     percentage() {
       return Math.round((this.items.vote_average / 10) * 100)
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -14,7 +14,7 @@ export function fetchCollections(media, header, page = 1) {
         `https://api.themoviedb.org/3/${media}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=us`,
         {
           params: {
-            page,
+            page
           }
         }
       )
@@ -70,10 +70,11 @@ export function fetchDiscover(header, genre, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=${genre}`,
+        `https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false`,
         {
           params: {
-            page
+            page,
+            with_genres: genre
           }
         }
       )
@@ -170,9 +171,9 @@ export function fetchEpisodes(id, season) {
   })
 }
 
-/** 
+/**
  * fetchCredits
-*/
+ */
 export function fetchCredits(media, id) {
   return new Promise((resolve, reject) => {
     axios
@@ -233,12 +234,13 @@ export function fetchSearch(query, page = 1) {
     axios
       .get(
         `https://api.themoviedb.org/3/search/multi?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&include_adult=false
-        `, {
-        params: {
-          query,
-          page
+        `,
+        {
+          params: {
+            query,
+            page
+          }
         }
-      }
       )
       .then(response => {
         resolve(response.data)

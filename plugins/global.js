@@ -30,7 +30,7 @@ Vue.filter('capitalizeFirst', function(word) {
   return word.charAt(0).toUpperCase() + word.slice(1)
 })
 
-Vue.filter('truncate', function(text, stop, clamp) {
+Vue.filter('truncate', function(text) {
   if (!text) return ''
-  return text.slice(0, stop) + (stop > text.length ? clamp || '...' : '...')
+  return text.substr(0, 2)
 })

@@ -18,144 +18,17 @@
         <v-icon id="router-icon" class="ma-2" size="23">mdi-home</v-icon>
         Home
       </v-btn>
+      <genre-menu
+        v-if="
+          $vuetify.breakpoint.lgOnly ||
+            $vuetify.breakpoint.xlOnly ||
+            $vuetify.breakpoint.mdOnly
+        "
+      />
       <!-- Film Menu-->
-      <v-menu id="movie_menu" offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" class="hidden-sm-and-down">
-            <v-icon class="ma-2 menu_icon" size="23">mdi-movie-roll</v-icon>
-            Films
-            <v-icon class="ma-2" size="23">mdi-chevron-down</v-icon>
-          </v-btn>
-        </template>
-        <v-list class="dropdown" width="156">
-          <v-list-item>
-            <v-list-item-content>
-              <nuxt-link
-                :to="{
-                  name: 'movie',
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23"
-                  >mdi-folder-information</v-icon
-                >
-                Index
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'popular' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-chart-line</v-icon>
-                Popular
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'upcoming' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-new-box</v-icon>
-                Upcoming
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'top_rated' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-star</v-icon>
-                Top Rated
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'movie', type: 'now_playing' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-play-speed</v-icon>
-                Now Playing
-              </nuxt-link>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <film-menu />
       <!-- Series Menu-->
-      <v-menu id="series_menu" offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" class="hidden-sm-and-down">
-            <v-icon class="ma-2 menu_icon" size="23"
-              >mdi-television-classic</v-icon
-            >
-            Series
-            <v-icon class="ma-2" size="23">mdi-chevron-down</v-icon>
-          </v-btn>
-        </template>
-        <v-list class="dropdown" width="163">
-          <v-list-item>
-            <v-list-item-content>
-              <nuxt-link
-                :to="{
-                  name: 'tv',
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23"
-                  >mdi-folder-information</v-icon
-                >
-                Index
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'popular' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-chart-line</v-icon>
-                Popular
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'top_rated' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-star</v-icon>
-                Top Rated
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'on_the_air' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23">mdi-play-speed</v-icon>
-                On The Air
-              </nuxt-link>
-              <nuxt-link
-                :to="{
-                  name: 'discover-collections-media-type',
-                  params: { media: 'tv', type: 'airing_today' },
-                }"
-                class="nuxt_url"
-              >
-                <v-icon class="ma-2 url_icon" size="23"
-                  >mdi-calendar-today</v-icon
-                >
-                Airing Today
-              </nuxt-link>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <series-menu />
     </v-app-bar>
     <v-navigation-drawer
       class="hidden-lg-and-up nav_drawer"
@@ -177,221 +50,28 @@
       <!--
         Film Drawer
       -->
-      <v-card flat tile @click="filmsExpand = !filmsExpand">
-        <v-toolbar flat class="film_card">
-          <v-card-title
-            ><v-icon class="ma-2" size="30" color="deep-purple darken-4"
-              >mdi-movie-roll</v-icon
-            >Films
-            <v-icon
-              >mdi-{{ `chevron-${filmsExpand ? 'up' : 'down'}` }}</v-icon
-            ></v-card-title
-          >
+      <v-card flat tile>
+        <v-toolbar flat color="rgb(230,230,230)">
+          <genre-menu />
         </v-toolbar>
-        <v-expand-transition>
-          <v-list v-show="filmsExpand" class="deep-purple darken-4">
-            <v-list-item-group>
-              <v-list-item>
-                <v-list-item-content class="text-center">
-                  <nuxt-link
-                    :to="{
-                      name: 'movie',
-                    }"
-                    class="subnav"
-                  >
-                    <v-icon class="ma-1" size="39" color="white"
-                      >mdi-folder-information</v-icon
-                    >
-                    Index
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'popular' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-chart-box</v-icon
-                      >
-                      Popular
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-media-trending',
-                      params: { media: 'movie' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-chart-line-variant</v-icon
-                      >
-                      Trending
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'upcoming' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-new-box</v-icon
-                      >
-                      Upcoming
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'top_rated' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-star</v-icon
-                      >
-                      Top Rated
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'movie', type: 'now_playing' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon size="39" color="white" class="ma-1"
-                        >mdi-play-speed</v-icon
-                      >
-                      Now Playing
-                    </v-card-subtitle>
-                  </nuxt-link>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-expand-transition>
       </v-card>
+
+      <film-drawer />
       <!--
         Series Drawer
       -->
-      <v-card flat tile @click="tvExpand = !tvExpand">
-        <v-toolbar flat class="film_card">
-          <v-card-title
-            ><v-icon class="ma-2" size="30" color="deep-purple darken-4"
-              >mdi-television-classic</v-icon
-            >TV Series
-            <v-icon
-              >mdi-{{ `chevron-${tvExpand ? 'up' : 'down'}` }}</v-icon
-            ></v-card-title
-          >
-        </v-toolbar>
-        <v-expand-transition>
-          <v-list v-show="tvExpand" class="deep-purple darken-4">
-            <v-list-item-group>
-              <v-list-item>
-                <v-list-item-content class="text-center">
-                  <nuxt-link
-                    :to="{
-                      name: 'tv',
-                    }"
-                    class="subnav"
-                  >
-                    <v-icon class="ma-1" size="39" color="white"
-                      >mdi-folder-information</v-icon
-                    >
-                    Index
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'popular' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-chart-box</v-icon
-                      >
-                      Popular
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-media-trending',
-                      params: { media: 'tv' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-chart-line-variant</v-icon
-                      >
-                      Trending
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'top_rated' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon color="white" size="39" class="ma-1"
-                        >mdi-star</v-icon
-                      >
-                      Top Rated
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'airing_today' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon size="39" color="white" class="ma-1"
-                        >mdi-calendar-today</v-icon
-                      >
-                      TV Airing Today
-                    </v-card-subtitle>
-                  </nuxt-link>
-                  <nuxt-link
-                    :to="{
-                      name: 'discover-collections-media-type',
-                      params: { media: 'tv', type: 'on_the_air' },
-                    }"
-                    class="subnav"
-                  >
-                    <v-card-subtitle class="subnav-name subtitle-2">
-                      <v-icon size="39" color="white" class="ma-1"
-                        >mdi-play-speed</v-icon
-                      >
-                      TV On The Air
-                    </v-card-subtitle>
-                  </nuxt-link>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-expand-transition>
-      </v-card>
+      <series-drawer />
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
+import FilmMenu from './menus/Film-menu'
+import SeriesMenu from './menus/Series-menu'
 import Search from '../global/search/Search'
+import FilmDrawer from './drawers/Film-drawer'
+import SeriesDrawer from './drawers/Series-drawer'
+import GenreMenu from './genres/Genre-menu'
 import { mapState } from 'vuex'
 export default {
   data() {
@@ -401,13 +81,20 @@ export default {
       floating: true,
       tvExpand: false,
       filmsExpand: false,
-      model: 1,
+      model: 1
     }
   },
-  components: { Search },
-  methods: {
-    ...mapState(['displaySearch']),
+  components: {
+    Search,
+    FilmMenu,
+    SeriesMenu,
+    FilmDrawer,
+    SeriesDrawer,
+    GenreMenu
   },
+  methods: {
+    ...mapState(['displaySearch'])
+  }
 }
 </script>
 

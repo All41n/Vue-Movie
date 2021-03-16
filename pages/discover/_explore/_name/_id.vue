@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid>
+  <v-container id="collection_contaier" fluid>
+    <Featured :items="randomFeature" />
     <h3 id="discover_title" class="discover_title">{{ this.title }}</h3>
     <v-row justify="center" class="ma-0 pa-0">
       <Card v-for="(item, i) in discover" :key="i" :items="item" />
@@ -11,11 +12,13 @@
         @infinite="fetchMore"
       ></infinite-loading>
     </client-only>
+    <!-- <p>{{ randomFeature }}</p> -->
   </v-container>
 </template>
 
 <script>
 import Card from '../../../../components/Card'
+import Featured from '../../../../components/Featured'
 import { fetchDiscover } from '../../../../tmdb/tmdb'
 export default {
   data() {
@@ -28,7 +31,22 @@ export default {
     }
   },
   components: {
-    Card
+    Card,
+    Featured
+  },
+  async asyncData({ params, error }) {
+    try {
+      const featured = await fetchDiscover(params.explore, params.id)
+      featured.results.forEach(function(media) {
+        media.media_type = params.explore
+      })
+      const randomFeature =
+        featured.results[Math.floor(Math.random() * featured.results.length)]
+
+      return { featured, randomFeature }
+    } catch {
+      error({ message: 'Whoops! Something went wrong!' })
+    }
   },
   methods: {
     async fetchMore($state) {
@@ -65,5 +83,13 @@ export default {
   margin-left: 20px;
   margin-top: 15px;
   /* margin-bottom: -px; */
+}
+
+.container {
+  padding: 0px !important;
+}
+
+#collection_contaier {
+  background-color: rgb(230, 230, 230) !important;
 }
 </style>

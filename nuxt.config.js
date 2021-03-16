@@ -6,15 +6,24 @@ export default {
    */
   head: {
     titleTemplate: '%s',
-    title: 'Nuxtflix' || '',
+    title: 'Nuxtflix',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: 'Browse Movies, TV Shows and People'
+      },
+      { hid: 'author', name: 'author', content: 'Allain Escobar' },
+      { hid: 'og:locale', property: 'og:locale', content: 'en_GB' },
+      { hid: 'og:title', property: 'og:title', content: 'NuxtFlix' },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Browse Movies, TV Shows and People'
+      },
+      { hid: 'og:type', property: 'og:type', content: 'website' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
@@ -77,7 +86,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) { }
+    extend(config, ctx) {}
     // analyze:true
   }
 }

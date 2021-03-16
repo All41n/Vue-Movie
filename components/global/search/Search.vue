@@ -31,11 +31,11 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      query:'',
+      query: ''
     }
   },
   computed: {
-    ...mapState(['displaySearch']),
+    ...mapState(['displaySearch'])
   },
   methods: {
     ...mapActions(['toggleSearchBar']),
@@ -43,15 +43,14 @@ export default {
       if (this.query) {
         this.$router.push({
           name: 'search',
-          query: { s: this.query },
+          query: { s: this.query }
         })
       } else {
-        this.$router.push(this.$router.currentRoute.name)
+        this.$router.push({ path: this.$router.currentRoute.name })
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
-<style>
-</style>
+<style></style>

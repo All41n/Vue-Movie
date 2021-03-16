@@ -122,7 +122,6 @@
             <Profile :pics="profile_pics" />
           </div>
         </v-col>
-        <p>{{this.$router.currentRoute.name}}</p>
       </v-row>
     </template>
   </v-container>
@@ -136,12 +135,12 @@ export default {
   data() {
     return {
       profile: 'https://image.tmdb.org/t/p/w400',
-      person_id: this.$route.params.id,
+      person_id: this.$route.params.id
     }
   },
   components: {
     Knownfor,
-    Profile,
+    Profile
   },
   async asyncData({ params, error }) {
     try {
@@ -150,10 +149,10 @@ export default {
       const tv_credits = person.tv_credits.cast
 
       //Insert media type
-      movie_credits.forEach(function (e) {
+      movie_credits.forEach(function(e) {
         e.media_type = 'movie'
       })
-      tv_credits.forEach(function (e) {
+      tv_credits.forEach(function(e) {
         e.media_type = 'tv'
       })
       //storing the edited objects
@@ -162,7 +161,7 @@ export default {
       return {
         person,
         combined,
-        profile_pics,
+        profile_pics
         // movie_credits
       }
     } catch {
@@ -170,14 +169,14 @@ export default {
     }
   },
   methods: {
-    gender: function (gender) {
+    gender: function(gender) {
       if (gender == '1') {
         return 'Female'
       } else if (gender == '2') {
         return 'Male'
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
