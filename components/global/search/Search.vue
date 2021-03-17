@@ -46,7 +46,7 @@ export default {
           query: { s: this.query }
         })
       } else {
-        this.$router.push({ path: this.$router.currentRoute.name })
+        this.$router.push({ name: this.$router.currentRoute.name })
       }
     }
   }
