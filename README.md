@@ -2,9 +2,10 @@
 An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 
 # Current Appearance
-![image](https://i.ibb.co/YDMxq3f/mainpage.png)
-![image](https://i.ibb.co/M5Yf0Pz/dynamiccollectionpage.png)
-![image](https://i.ibb.co/w0cZKRH/dialogshow.png)
+![image](https://i.ibb.co/2h6H63y/index.png)
+![image](https://i.ibb.co/G7t7k6n/trending.png)
+![image](https://i.ibb.co/XF5k5cW/dialog.png)
+![image](https://i.ibb.co/YXSgfx1/trailer.png)
 
 
 ## Webpage
