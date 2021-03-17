@@ -25,6 +25,7 @@ https://nuxtflix.surge.sh/
 
 ## Needed To Run
 1 - Sign up to https://www.themoviedb.org/ and apply for an API key
+
 2 - Create and .env file and create an API_KEY variable and append your API key to it.
 
 ## Build Setup
