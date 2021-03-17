@@ -6,7 +6,7 @@ export default {
    */
   head: {
     titleTemplate: '%s',
-    title: 'Nuxtflix',
+    title: 'NUXTFLIX',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -17,7 +17,7 @@ export default {
       },
       { hid: 'author', name: 'author', content: 'Allain Escobar' },
       { hid: 'og:locale', property: 'og:locale', content: 'en_GB' },
-      { hid: 'og:title', property: 'og:title', content: 'NuxtFlix' },
+      { hid: 'og:title', property: 'og:title', content: 'NUXTFLIX' },
       {
         hid: 'og:description',
         property: 'og:description',
@@ -25,7 +25,13 @@ export default {
       },
       { hid: 'og:type', property: 'og:type', content: 'website' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: '/favicon-32x32.png'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
