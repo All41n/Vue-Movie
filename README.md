@@ -1,15 +1,15 @@
 # Nuxtflix
 An app made using Vue.js, Nuxt.js, Vuetify and TMDB API
 
+## Webpage
+https://nuxtflix.surge.sh/
+
+
 # Current Appearance
 ![image](https://i.ibb.co/2h6H63y/index.png)
 ![image](https://i.ibb.co/G7t7k6n/trending.png)
 ![image](https://i.ibb.co/XF5k5cW/dialog.png)
 ![image](https://i.ibb.co/YXSgfx1/trailer.png)
-
-
-## Webpage
-https://nuxtflix.surge.sh/
 
 ### ToDo
 - [x] Home Page
@@ -23,6 +23,9 @@ https://nuxtflix.surge.sh/
 - [x] Component and Page for Selected Genres
 - [x] Include trailers
 
+## Needed To Run
+1 - Sign up to https://www.themoviedb.org/ and apply for an API key
+2 - Create and .env file and create an API_KEY variable and append your API key to it.
 
 ## Build Setup
 
