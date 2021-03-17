@@ -11,9 +11,10 @@ export function fetchCollections(media, header, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${media}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=us`,
+        `https://api.themoviedb.org/3/${media}/${header}?language=en-US&region=us`,
         {
           params: {
+            api_key: process.env.API_KEY,
             page
           }
         }
@@ -33,9 +34,11 @@ export function fetchCollections(media, header, page = 1) {
 export function fetchTrending(header, duration) {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/trending/${header}/${duration}?api_key=fd88cff7f01965be8612902e680dd82c`
-      )
+      .get(`https://api.themoviedb.org/3/trending/${header}/${duration}`, {
+        params: {
+          api_key: process.env.API_KEY
+        }
+      })
       .then(response => {
         resolve(response.data)
       })
@@ -52,7 +55,12 @@ export function fetchDetails(type, header) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${type}/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&append_to_response=images,videos`
+        `https://api.themoviedb.org/3/${type}/${header}?language=en-US&append_to_response=images,videos`,
+        {
+          params: {
+            api_key: process.env.API_KEY
+          }
+        }
       )
       .then(response => {
         resolve(response.data)
@@ -70,9 +78,10 @@ export function fetchDiscover(header, genre, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/discover/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false`,
+        `https://api.themoviedb.org/3/discover/${header}?language=en-US&region=gb&sort_by=popularity.desc&include_adult=false&include_video=false`,
         {
           params: {
+            api_key: process.env.API_KEY,
             page,
             with_genres: genre
           }
@@ -93,9 +102,11 @@ export function fetchDiscover(header, genre, page = 1) {
 export function fetchGenres(header) {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/genre/${header}/list?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-      )
+      .get(`https://api.themoviedb.org/3/genre/${header}/list?language=en-US`, {
+        params: {
+          api_key: process.env.API_KEY
+        }
+      })
       .then(response => {
         resolve(response.data)
       })
@@ -111,15 +122,13 @@ export function fetchGenres(header) {
 export function fetchPeople(header) {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        ` https://api.themoviedb.org/3/person/${header}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`,
-        {
-          params: {
-            append_to_response:
-              'movie_credits,tv_credits,external_ids,images,videos,content_ratings'
-          }
+      .get(` https://api.themoviedb.org/3/person/${header}?language=en-US`, {
+        params: {
+          api_key: process.env.API_KEY,
+          append_to_response:
+            'movie_credits,tv_credits,external_ids,images,videos,content_ratings'
         }
-      )
+      })
       .then(response => {
         resolve(response.data)
       })
@@ -136,9 +145,10 @@ export function fetchSimilar(media, id, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${media}/${id}/similar?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`,
+        `https://api.themoviedb.org/3/${media}/${id}/similar?language=en-US`,
         {
           params: {
+            api_key: process.env.API_KEY,
             page
           }
         }
@@ -160,7 +170,12 @@ export function fetchEpisodes(id, season) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/tv/${id}/season/${season}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+        `https://api.themoviedb.org/3/tv/${id}/season/${season}?language=en-US`,
+        {
+          params: {
+            api_key: process.env.API_KEY
+          }
+        }
       )
       .then(response => {
         resolve(response.data)
@@ -178,7 +193,12 @@ export function fetchCredits(media, id) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${media}/${id}/credits?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
+        `https://api.themoviedb.org/3/${media}/${id}/credits?language=en-US`,
+        {
+          params: {
+            api_key: process.env.API_KEY
+          }
+        }
       )
       .then(response => {
         resolve(response.data)
@@ -195,9 +215,11 @@ export function fetchCredits(media, id) {
 export function fetchBelongto(id) {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/collection/${id}?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-      )
+      .get(`https://api.themoviedb.org/3/collection/${id}?language=en-US`, {
+        params: {
+          api_key: process.env.API_KEY
+        }
+      })
       .then(response => {
         resolve(response.data)
       })
@@ -213,9 +235,11 @@ export function fetchBelongto(id) {
 export function fetchVideos(id) {
   return new Promise((resolve, reject) => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US`
-      )
+      .get(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, {
+        params: {
+          api_key: process.env.API_KEY
+        }
+      })
       .then(response => {
         resolve(response.data)
       })
@@ -233,10 +257,11 @@ export function fetchSearch(query, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/search/multi?api_key=fd88cff7f01965be8612902e680dd82c&language=en-US&include_adult=false
+        `https://api.themoviedb.org/3/search/multi?language=en-US&include_adult=false
         `,
         {
           params: {
+            api_key: process.env.API_KEY,
             query,
             page
           }

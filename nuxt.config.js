@@ -53,9 +53,17 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: ['@nuxtjs/vuetify'],
+
+  /**
+   * .ENV
+   */
+  env: {
+    API_KEY: process.env.API_KEY || ''
+  },
   /*
    ** Nuxt.js modules
    */
+
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
